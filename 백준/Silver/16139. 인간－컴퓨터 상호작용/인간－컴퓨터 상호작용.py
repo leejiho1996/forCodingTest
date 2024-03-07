@@ -5,14 +5,21 @@ input = sys.stdin.readline
 string = input().rstrip()
 n = int(input())
 
-s = ''
-acc = []
+alpha = 'abcdefghijklmnopqrstuvwxyz'
 
-for i in range(len(string)):
-    s += string[i]
-    acc.append(s)
+acc = [[0] * (len(string)+1) for _ in range(len(alpha))]
+
+for i in range(len(alpha)):
+    for j in range(len(string)):
+        if alpha[i] == string[j]:
+            acc[i][j] = acc[i][j-1]+1
+        else:
+            acc[i][j] = acc[i][j-1]
 
 for i in range(n):
-    a, start, end = input().rstrip().split()
-    print(string[int(start):int(end)+1].count(a))
-    
+    char, start, end = input().rstrip().split()
+    start = int(start)
+    end = int(end)
+
+    print(acc[alpha.index(char)][end] - acc[alpha.index(char)][start-1])
+            

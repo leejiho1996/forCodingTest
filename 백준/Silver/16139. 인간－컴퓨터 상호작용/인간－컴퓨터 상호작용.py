@@ -1,25 +1,17 @@
-# 인간-컴퓨터 상호작용
 import sys
 input = sys.stdin.readline
 
-string = input().rstrip()
-n = int(input())
+s = input().rstrip()
+arr = [[0]*26]
+arr[0][ord(s[0])-97] = 1
+for i in range(1,len(s)):
+    arr.append(arr[-1][:])
+    arr[i][ord(s[i])-97] += 1
 
-alpha = 'abcdefghijklmnopqrstuvwxyz'
-
-acc = [[0] * (len(string)+1) for _ in range(len(alpha))]
-
-for i in range(len(alpha)):
-    for j in range(len(string)):
-        if alpha[i] == string[j]:
-            acc[i][j] = acc[i][j-1]+1
-        else:
-            acc[i][j] = acc[i][j-1]
-
-for i in range(n):
-    char, start, end = input().rstrip().split()
-    start = int(start)
-    end = int(end)
-
-    print(acc[alpha.index(char)][end] - acc[alpha.index(char)][start-1])
-            
+for _ in range(int(input())):
+    c,start,end = list(input().split())
+    start,end = map(int,[start,end])
+    if start == 0:
+        print(arr[end][ord(c)-97])
+    else:
+        print(arr[end][ord(c)-97]-arr[start-1][ord(c)-97])

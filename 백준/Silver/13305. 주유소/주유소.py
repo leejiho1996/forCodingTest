@@ -6,17 +6,19 @@ n = int(input())
 dist = list(map(int,input().split()))
 cost = list(map(int,input().split()))
 
-result = dist[0] * cost[0]
+summ = sum(dist)
+result = 0
 
-minn = min(cost[:-1])
-summ = sum(dist) - dist[0]
-
-for i in range(1, len(cost)-1):
-    if cost[i] == minn:
-        result += cost[i] * summ
-        break
-    else:
-        result += dist[i] * cost[i]
-        summ -= dist[i]
+seq = 0
+while summ:
+    summ -= dist[seq]
+    result += cost[seq] * dist[seq]
+    for i in range(seq+1 , n-1):
+        if cost[seq] > cost[i]:
+            seq = i
+            break
+        else:
+            result += cost[seq] * dist[i]
+            summ -= dist[i]             
 
 print(result)

@@ -4,9 +4,7 @@ input = sys.stdin.readline
 
 k, n = map(int,input().split())
 
-line = []
-for i in range(k):
-    line.append(int(input()))
+line = [int(input()) for _ in range(k)]
 
 start = 1
 end = max(line)

@@ -14,7 +14,7 @@ for i in range(1, n+1):
 # 페르마의 소정리 -> a**(p-1) = 1 (mod p)
 
 head = dp[n] 
-tail = dp[k] * dp[n-k]
+tail = dp[k] * dp[n-k] % mod
 
 def divide(num, cnt, mod):
     if cnt == 1:

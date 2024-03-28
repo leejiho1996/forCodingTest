@@ -1,5 +1,1 @@
-import sys
-input = sys.stdin.readline
-
-num = list(map(int,input().split()))
-print(sum(num))
+print(sum(list(map(int,input().split()))))

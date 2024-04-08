@@ -1,60 +1,52 @@
-#7569
+# 토마토(3d)
 import sys
 from collections import deque
-all_fire_tomato = True
 input = sys.stdin.readline
-q = deque()
-M, N, H = map(int, input().split())
-result = 0
-arr = []
-for i in range(H):
+
+m, n, h = map(int,input().split())
+
+que = deque([])
+tomato = True
+board = []
+for k in range(h):
     temp = []
-    for j in range(N):
-        zxc = list(map(int, input().split()))
+    for i in range(n):
+        temp_b = list(map(int,input().split()))
         count = 0
-        for num in zxc:
-            if num == 0:
-                all_fire_tomato = False
-            elif num == 1:
-                q.append((i,j,count))
-            count +=1
-        temp.append(zxc)
-    arr.append(temp)
-
-
-# 왼 오 앞 뒤 위 아래
-dx = [-1, 1, 0, 0, 0, 0]
-dy = [0, 0, -1, 1, 0, 0]
-dz = [0, 0, 0, 0, -1, 1]
+        for j in temp_b:
+            if j == 1:
+                que.append((k, i, count))
+            elif j == 0:
+                tomato = False
+            count += 1
+        temp.append(temp_b)
+    board.append(temp)
+   
+pos = [(0,-1,0), (0,1,0), (0,0,-1), (0,0,1), (1,0,0),(-1,0,0)]
 
 def bfs():
-    global result
+    while que:
+        height, row, col = que.popleft()
 
+        for he, r, c in pos:
+            new_height = height + he
+            new_row = row + r
+            new_col = col + c
 
-    while q:
-        c, b, a = q.popleft()
+            if 0 <= new_height < h and 0 <= new_row < n and 0 <= new_col < m and board[new_height][new_row][new_col] == 0:
+                que.append((new_height, new_row, new_col))
+                board[new_height][new_row][new_col] = board[height][row][col] + 1
 
-        for i in range(6):
-            nx = a + dx[i]
-            ny = b + dy[i]
-            nz = c + dz[i]
-
-            if 0 <= nx < M and 0 <= ny < N and 0 <= nz < H:
-                if arr[nz][ny][nx] == 0:
-                    arr[nz][ny][nx] = arr[c][b][a] + 1
-                    temp = [nz, ny, nx]
-                    q.append(temp)
-                    if result < arr[nz][ny][nx]:
-                        result= arr[nz][ny][nx]
-
-if all_fire_tomato:
+maxx = 0
+if tomato:
     print(0)
 else:
     bfs()
-    for k in range(H):
-        for i in range(N):
-            for j in range(M):
-                if arr[k][i][j] == 0:
+    for k in range(h):
+        for i in range(n):
+            for j in range(m):
+                if board[k][i][j] == 0:
                     print(-1)
                     sys.exit()
-    print(result-1)
+                maxx = max(board[k][i][j], maxx)
+    print(maxx-1)

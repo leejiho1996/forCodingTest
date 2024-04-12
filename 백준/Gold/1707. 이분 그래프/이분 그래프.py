@@ -1,26 +1,23 @@
 # 이분 그래프
 import sys
 input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
 
 t = int(input())
 
 def dfs(idx):
-    stack = [(idx, 1)]
-    
-    while stack:
-        node, color = stack.pop()    
-        visit[node] = color
+    global check
+    for i in graph[idx]:
 
-        for i in graph[node]:
-            if visit[i] == 0:
-                stack.append((i, -color))
-
-            elif visit[i] != 0:
-                if visit[i] != -color:
-                    # print(idx, node, i, color)
-                    return False
-    return True
-
+        if visit[i] == 0:
+            visit[i] = -visit[idx]
+            dfs(i)
+            
+        else:
+            if visit[i] == visit[idx]:
+                check = False
+                return 
+        
 for i in range(t):
     v, e = map(int,input().split())
 
@@ -37,7 +34,8 @@ for i in range(t):
     for idx in range(v):
         stack = []
         if visit[idx] == 0:
-            check = dfs(idx)
+            visit[idx] = 1
+            dfs(idx)
             if not check:
                 break
 

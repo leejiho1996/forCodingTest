@@ -20,20 +20,11 @@ while que:
     if cur == k:
         break
 
-    if cur-1 >= 0 and not visited[cur-1]:
-        que.append((cur-1, sec+1))
-        visited[cur-1] = 1
-        route[cur-1] = cur
-        
-    if cur+1 <= 100000 and not visited[cur+1]:
-        que.append((cur+1, sec+1))
-        visited[cur+1] = 1
-        route[cur+1] = cur
-        
-    if cur*2 <= 100000 and not visited[cur*2]:
-        que.append((cur*2, sec+1))
-        visited[cur*2] = 1
-        route[cur*2] = cur
+    for i in (cur-1, cur+1, cur*2):
+        if 0 <= i <= 100000 and not visited[i]:
+            que.append((i, sec+1))
+            visited[i] = 1
+            route[i] = cur
 
 result = [k]
 

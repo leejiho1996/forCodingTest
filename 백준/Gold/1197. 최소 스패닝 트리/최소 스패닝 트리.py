@@ -29,11 +29,7 @@ while que:
     if start_root == to_root:
         continue
     else:
-        if start > to:
-            check[start_root] = to_root
-        else:
-            check[to_root] = start_root
-
+        check[to_root] = start_root
         total += cost
 
 print(total)

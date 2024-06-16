@@ -34,14 +34,17 @@ while que:
         visited[cur] = (cost, prev, cur)
         break
 
-    if visited[cur][0] > cost:
-        visited[cur] = (cost, prev, cur)
-        
-        for i in graph[cur]:
-            n_cost, n_start, n_to = i
+    if visited[cur][0] < cost:
+        continue
 
-            if visited[n_to][0] > n_cost + cost:
-                heapq.heappush(que, (n_cost+cost, n_start, n_to))
+    visited[cur] = (cost, prev, cur)
+    
+    for i in graph[cur]:
+        n_cost, n_start, n_to = i
+
+        if visited[n_to][0] > n_cost + cost:
+            heapq.heappush(que, (n_cost+cost, n_start, n_to))
+            visited[n_to] = (n_cost + cost, n_start, n_to)
 
 print(visited[t_to][0])
 

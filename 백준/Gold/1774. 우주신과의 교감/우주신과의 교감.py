@@ -2,6 +2,7 @@
 import sys
 input = sys.stdin.readline
 import heapq
+import math
 
 def find(n):
     if parent[n] != n:
@@ -9,7 +10,7 @@ def find(n):
     return parent[n]
 
 def calDistance(x1, y1, x2, y2):
-    distance = ((x1-x2)**2 + (y1-y2)**2)**(1/2)
+    distance = math.sqrt((x1-x2)**2 + (y1-y2)**2)
     return distance
 
 n, m = map(int,input().split())
@@ -62,3 +63,6 @@ print(f'{total:.2f}')
 
                     
 
+    
+    
+    

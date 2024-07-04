@@ -28,7 +28,6 @@ def dfs(num):
     
     return depth[num][0]
 
-seq = {}
 for i in range(1, n+1):
     num = dfs(i)
 
@@ -36,5 +35,3 @@ depth.sort()
 
 for i in range(1, n+1):
     print(depth[i][1], end=' ')
-
-

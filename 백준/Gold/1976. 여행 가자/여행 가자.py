@@ -8,7 +8,7 @@ parent = [i for i in range(n+1)]
 link = []
 for i in range(n):
     tmp = list(map(int,input().split()))
-    for j in range(n):
+    for j in range(i+1, n):
         if tmp[j]:
             link.append((i+1, j+1))
 
@@ -25,17 +25,15 @@ for start, to in link:
     if startParent != toParent:
         if startParent > toParent:
             parent[startParent] = toParent
-            find(start)
         else:
             parent[toParent] = startParent
-            find(to)
 
 plan = list(map(int,input().split()))
 
-start = parent[plan[0]]
+start = find(plan[0])
 check = True
 for i in plan:
-    if parent[i] != start:
+    if find(i) != start:
         check = False
 
 if check:

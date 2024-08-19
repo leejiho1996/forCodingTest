@@ -1,31 +1,29 @@
-# 할일 정하기
 import sys
+
 input = sys.stdin.readline
 
-n= int(input())
 
-works = []
-for i in range(n):
-    works.append(list(map(int,input().split())))
-
-dp = [-1] * (1<<(n+1))
-
-def dfs(cur, visited):
-    if cur == n:
+def dfs(row, visit):
+    if row == N:
         return 0
 
-    if dp[visited] != -1:
-        return dp[visited]
-    
-    for i in range(n):
-        if (visited & (1 << i)):
-            continue
-        
-        if dp[visited] == -1:
-            dp[visited] = works[cur][i] + dfs(cur+1, visited | 1 << i)
-        else:
-            dp[visited] = min(dp[visited], dfs(cur+1, visited | 1 << i) + works[cur][i])
-        
-    return dp[visited]
+    if visited[visit] != -1:
+        return visited[visit]
 
-print(dfs(0,0))
+    ret = 1000000000
+    for i in range(N):
+        if (visit & (1 << i)) != 0:  # 특정 비트가 켜저있다면
+            continue
+
+        ret = min(ret, dfs(row + 1, (visit | (1 << i))) + tasks[row][i])
+       
+    visited[visit] = ret
+
+    return visited[visit]
+
+
+N = int(input())
+tasks = [list(map(int, input().split())) for _ in range(N)]
+
+visited = [-1] * (1 << N)
+print(dfs(0, 0))

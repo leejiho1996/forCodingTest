@@ -2,7 +2,7 @@
 import sys
 input = sys.stdin.readline
 from collections import deque
-
+sys.setrecursionlimit(1000000)
 que = deque()
 
 v = int(input())

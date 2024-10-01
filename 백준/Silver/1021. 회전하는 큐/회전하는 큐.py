@@ -17,12 +17,11 @@ for i in pick:
     idx = num.index(i)
 
     if idx <= n - idx:
-        cnt += idx
-        num = num[idx+1:] + num[0:idx]
+        cnt += idx 
     else:
         cnt += n - idx
-        num = num[idx+1:] + num[0:idx]
-
+       
+    num = num[idx+1:] + num[0:idx]
     n -= 1
 
 print(cnt)

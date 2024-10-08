@@ -18,9 +18,9 @@ for i in range(n):
         if friends[i][j] == "Y":
             cnt += 1
             for k in range(n):
-                if k == i:
+                if k == i or visited[k]:
                     continue
-                if friends[j][k] == "Y" and friends[i][k] =="N" and not visited[k] :
+                if friends[j][k] == "Y" and friends[i][k] =="N" :
                     visited[k] = 1
                     cnt += 1
 

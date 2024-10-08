@@ -15,9 +15,6 @@ for i in range(n):
     cnt = 0
     visited = [0] * n
     for j in range(n):
-        if i == j:
-            continue
-        
         if friends[i][j] == "Y":
             cnt += 1
             for k in range(n):

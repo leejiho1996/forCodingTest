@@ -15,14 +15,15 @@ for i in range(n):
     cnt = 0
     visited = [0] * n
     for j in range(n):
-        if friends[i][j] == "Y":
-            cnt += 1
-            for k in range(n):
-                if k == i or visited[k]:
-                    continue
-                if friends[j][k] == "Y" and friends[i][k] =="N" :
-                    visited[k] = 1
-                    cnt += 1
+        if friends[i][j] != "Y":
+            continue
+        cnt += 1
+        for k in range(n):
+            if k == i or visited[k]:
+                continue
+            if friends[j][k] == "Y" and friends[i][k] =="N" :
+                visited[k] = 1
+                cnt += 1
 
     count_friends[i] = cnt
 

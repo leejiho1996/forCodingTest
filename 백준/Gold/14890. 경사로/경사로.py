@@ -38,11 +38,8 @@ def check(side):
             possible = True
             
             if abs(head - nextt) > 1 : # 해당 길은 이동 불가
-                possible = False
                 break
 
-            
-            
             if head - nextt == 1: # 선도 블럭이 더 큰경우
                 if cur + L >= n:
                     break

@@ -24,9 +24,6 @@ for i in range(n):
         else:
             start = mid + 1
 
-    if start >= len(lis):
-        lis.append(num)
-    else:
-        lis[start] = num
+    lis[start] = num
 
 print(n - len(lis))

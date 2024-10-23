@@ -1,13 +1,3 @@
-def match(num, opp):
-    seats = (2,3,4)
-    for i in range(3):
-        for j in range(3):
-            if i == j:
-                continue
-            if num * seats[i] == opp * seats[j]:
-                return 1
-    return 0
-    
 def solution(weights):
     answer = 0
     
@@ -25,12 +15,15 @@ def solution(weights):
     for i in range(length):
         num = nums[i]
         answer += (dic[num] * (dic[num]-1)) // 2 # 같은 경우 처리 
-        for j in range(i+1, length):
-            if i == j:
-                continue
-            opp = nums[j]
-            
-            if match(num, opp):
-                answer += 1 * (dic[num] * dic[opp])
+        
+        if num * (4/3) in dic:
+            answer += dic[num] * dic[num*(4/3)]
+        
+        if num * (3/2) in dic:
+            answer += dic[num] * dic[num*(3/2)]
+        
+        if num * (2) in dic:
+            answer += dic[num] * dic[num*(2)]
+        
 
     return answer

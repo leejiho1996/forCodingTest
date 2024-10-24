@@ -1,8 +1,10 @@
 from collections import deque
 
-def bfs(que, destination, visited, maps, row, col):
+def bfs(que, destination, maps):
     direc = [(0,1),(0,-1),(1,0),(-1,0)]
-    
+    row = len(maps)
+    col = len(maps[0])
+    visited = [[0] * col for _ in range(row)]    
     while que:
         x, y, cnt = que.popleft()
         
@@ -40,14 +42,13 @@ def solution(maps):
     eque = deque() # E를 찾을 큐
     lque = deque() # L을 찾을 큐
     lque.append((s[0], s[1], 0))
-    visited = [[0] * col for _ in range(row)]
     
-    Lcount = bfs(lque, "L", visited, maps, row, col)
+    Lcount = bfs(lque, "L", maps)
+    
     if Lcount == -1:
         return -1
     
     eque.append((l[0], l[1], Lcount))
-    visited = [[0] * col for _ in range(row)]
-    Ecount = bfs(eque, "E", visited, maps, row, col)
+    Ecount = bfs(eque, "E", maps)
 
     return Ecount

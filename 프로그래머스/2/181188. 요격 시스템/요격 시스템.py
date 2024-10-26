@@ -2,8 +2,8 @@ def solution(targets):
     cnt = 0
     targets.sort()
     shot = 0
-    for i in targets:
-        s, e = i
+    for s, e in targets:
+    
         if shot <= s:
             cnt += 1
             shot = e

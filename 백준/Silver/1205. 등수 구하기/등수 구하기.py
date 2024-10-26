@@ -8,9 +8,6 @@ if n == 0:
     exit()
 
 score = list(map(int,input().split()))
-sett = set(score)
-reverse = score[::-1]
-
 idx = n
 min_idx = n
 

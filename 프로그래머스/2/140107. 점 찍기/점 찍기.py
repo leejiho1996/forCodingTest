@@ -3,7 +3,7 @@ def solution(k, d):
     
     check = d**2
     for i in range(0, d+1, k):
-        possible = int((check - i**2)**(0.5))
+        possible = (check - i**2)**(0.5)
         answer += possible // k + 1
         
     return answer

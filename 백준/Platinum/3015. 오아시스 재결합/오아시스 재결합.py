@@ -6,8 +6,7 @@ n = int(input())
 limit = float('inf')
 num = []
 
-for i in range(n):
-    num.append(int(input()))
+num = [int(input()) for _ in range(n)]
 
 num.append(limit)
 
@@ -15,7 +14,6 @@ stack = [(num[0], 0, 0)]
 cnt = 0
 
 for i in range(1, n+1):
-    # print("stack", stack, "cnt", cnt, "num", num[i])
     total = 0
     cur = num[i]
     sa = 0

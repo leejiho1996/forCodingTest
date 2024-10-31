@@ -1,29 +1,15 @@
 def solution(sequence):
     
-    start_plus = sequence.copy()
-    start_minus = sequence.copy()
-    length = len(sequence)
-    mul = 1
+    dp1 = [sequence[0]]
+    dp2 = [sequence[0] * -1]
     
-    for i in range(length):
-        start_plus[i] *= mul
-        start_minus[i] *= -mul
-        mul = -mul
+    for i in range(1, len(sequence)):
+        if i % 2 == 1:
+            pulse = -1
+        else:
+            pulse = 1
+            
+        dp1.append(max(dp1[i-1] + sequence[i] * pulse, sequence[i] * pulse))  
+        dp2.append(max(dp2[i-1] + sequence[i] * (-pulse), sequence[i] * (-pulse)))
         
-    plus = 0
-    minus = 0
-    max_plus = start_plus[0]
-    max_minus = start_minus[0]
-    
-    for i in range(length):
-        plus += start_plus[i]
-        max_plus = max(max_plus, plus)
-        if plus < 0:
-            plus = 0
-        
-        minus += start_minus[i]
-        max_minus = max(max_minus, minus)
-        if minus < 0:
-            minus = 0
-    
-    return max(max_plus, max_minus)
+    return max(max(dp1), max(dp2))

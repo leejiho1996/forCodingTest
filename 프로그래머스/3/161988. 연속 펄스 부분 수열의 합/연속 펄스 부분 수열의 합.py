@@ -12,8 +12,8 @@ def solution(sequence):
         
     plus = 0
     minus = 0
-    max_plus = -float('inf')
-    max_minus = -float('inf')
+    max_plus = start_plus[0]
+    max_minus = start_minus[0]
     
     for i in range(length):
         plus += start_plus[i]
@@ -25,7 +25,5 @@ def solution(sequence):
         max_minus = max(max_minus, minus)
         if minus < 0:
             minus = 0
-        
-            
     
     return max(max_plus, max_minus)

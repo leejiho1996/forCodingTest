@@ -15,10 +15,17 @@ def solution(scores):
             
         if score[i][1] == prev: 
             if score[i][2] >= mx_score[prev]: # 현재와 이전이 같고 앞에 나온 수보다 크다면 가능
-                available.append(score[i])
+                available.append(score[i][0])
+            else:
+                if score[i] == wanho:
+                    return -1
+            
         else:
             if score[i][2] >= cur_mx: # 현재와 이전이 다르고 앞에 나온수보다 크다면 가능
-                available.append(score[i])
+                available.append(score[i][0])
+            else:
+                if score[i] == wanho:
+                    return -1
             
             prev = score[i][1] 
             mx_score[prev] = cur_mx # 이전값까지의 최대 숫자를 갱신
@@ -27,7 +34,4 @@ def solution(scores):
 
     available.sort(reverse=True)
     
-    if wanho in available:
-        return available.index(wanho) + 1
-    else:
-        return -1
+    return available.index(wanho[0]) + 1

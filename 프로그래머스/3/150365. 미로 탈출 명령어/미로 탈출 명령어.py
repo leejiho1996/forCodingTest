@@ -42,7 +42,7 @@ def solution(n, m, x, y, r, c, k):
             if (rest - next_shortest) % 2 == 1 or rest < next_shortest: 
                 continue
             
-            if heap[cnt+1] and heap[cnt+1][0] < word+i:
+            if heap[cnt+1]:
                 continue
             
             hq.heappush(heap[cnt+1], word+i)    

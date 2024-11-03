@@ -3,19 +3,15 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
+        int n = read();
+        int m = read();
 
         int[][] graph = new int[n][m];
         int[][] dp = new int[n][m];
 
         for (int i = 0; i < n ; i++) {
-            st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
-                graph[i][j] = Integer.parseInt(st.nextToken());
+                graph[i][j] = read();
             }
         }
 
@@ -55,5 +51,15 @@ public class Main {
 
         System.out.println(dp[n-1][m-1]);
 
+    }
+
+    public static int read() throws IOException {
+        int c, n = System.in.read() & 15;
+        boolean negative = n == 13;
+        if (negative) n = System.in.read() & 15;
+        while ((c = System.in.read()) > 32) {
+            n = (n << 3) + (n << 1) + (c & 15);
+        }
+        return negative ? ~n + 1 : n;
     }
 }

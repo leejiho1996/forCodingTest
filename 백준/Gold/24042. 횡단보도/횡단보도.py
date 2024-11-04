@@ -35,7 +35,9 @@ while heap:
     visited[cur] = time
     
     for nt, nl in graph[cur]:
-       
+        if visited[nl]:
+            continue
+        
         if nt > time: # 건널수 있다면 다음 시간은+1 
             next_time = nt + 1
         else: # 아니라면 다음 건널 시간을 계산

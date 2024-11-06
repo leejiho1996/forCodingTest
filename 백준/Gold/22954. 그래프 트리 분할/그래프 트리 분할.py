@@ -4,6 +4,10 @@ input = sys.stdin.readline
 
 n, m = map(int,input().split())
 
+if m == 0: # m이 0이라면 불가능
+    print(-1)
+    exit()
+
 def find(n):
     if parent[n] != n:
         parent[n] = find(parent[n])
@@ -53,10 +57,6 @@ for i in range(1, n+1):
     if len(links[i]) == 1:
         leaf.append(i)
 
-if m == 0:
-    print(-1)
-    exit()
-
 if len(trees) >= 3: # 트리가 3개 이상이면 둘로 못나눈다 
     print(-1)
     exit()
@@ -75,8 +75,8 @@ if len(root) == 2:
     main, main_link = check(root[0])
     sep, sep_link = check(root[1])
 else:
-    main, main_link = check(root[0], leaf[-1])
-    sep, sep_link = [leaf[-1]], []   
+    main, main_link = check(root[0], leaf[0])
+    sep, sep_link = [leaf[0]], []   
 
 print(len(main), len(sep))
 print(*main)

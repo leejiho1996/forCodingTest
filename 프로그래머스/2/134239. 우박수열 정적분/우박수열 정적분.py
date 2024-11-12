@@ -18,9 +18,7 @@ def solution(k, ranges):
     n = len(points) - 1
     
     for x, y in ranges:
-    
-        if y <= 0:
-            y = n + y
+        y = n + y
         
         if x > y or x > n:
             answer.append(-1)

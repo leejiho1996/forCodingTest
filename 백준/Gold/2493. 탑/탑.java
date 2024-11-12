@@ -7,6 +7,7 @@ public class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
         int n = Integer.parseInt(st.nextToken());
         int[] towers = new int[n];
@@ -32,7 +33,10 @@ public class Main {
             stack.push(i);
         }
         for (int e: result) {
-            System.out.print(e + " ");
+            sb.append(e);
+            sb.append(" ");
         }
+
+        System.out.println(sb);
     }
 }

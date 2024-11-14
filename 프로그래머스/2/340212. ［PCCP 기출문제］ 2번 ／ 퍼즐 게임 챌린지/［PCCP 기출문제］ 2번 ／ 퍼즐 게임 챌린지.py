@@ -8,6 +8,7 @@ def solution(diffs, times, limit):
     while start <= end:
         mid = (start + end) // 2
         total = 0
+        
         for i in range(length):
             if i == 0:
                 prev = 0 # 현재가 첫번째라면 prev 0
@@ -26,4 +27,4 @@ def solution(diffs, times, limit):
         else: # total <= limit 이면 level을 더 낮춰야함 
             end = mid - 1
         
-    return end + 1
+    return start

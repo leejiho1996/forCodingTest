@@ -3,7 +3,6 @@ def solution(land):
     col = len(land[0])
     row = len(land)
     visited = [[0] * col for _ in range(row)]
-    cnt = 0
     result = [0] * col
     direc = ((1, 0), (-1, 0), (0, 1), (0, -1))
     
@@ -12,7 +11,6 @@ def solution(land):
             if visited[i][j] or land[i][j] == 0:
                 continue
             
-            cnt += 1
             stack = [(i, j)]
             cols = set()
             total = 0
@@ -25,7 +23,7 @@ def solution(land):
                 
                 total += 1
                 cols.add(c)
-                visited[r][c] = cnt
+                visited[r][c] = 1
                 
                 for x, y in direc:
                     nr = r + x

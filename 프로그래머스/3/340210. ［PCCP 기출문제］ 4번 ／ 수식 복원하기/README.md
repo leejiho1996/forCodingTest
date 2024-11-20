@@ -1,10 +1,10 @@
 # [level 3] [PCCP 기출문제] 4번 / 수식 복원하기 - 340210 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/340210?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/340210?language=java) 
 
 ### 성능 요약
 
-메모리: 10.4 MB, 시간: 0.48 ms
+메모리: 77.7 MB, 시간: 33.81 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 11월 20일 23:42:25
+2024년 11월 21일 00:50:33
 
 ### 문제 설명
 

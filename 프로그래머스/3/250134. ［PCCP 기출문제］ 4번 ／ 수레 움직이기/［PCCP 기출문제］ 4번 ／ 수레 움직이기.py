@@ -26,10 +26,8 @@ def solution(maze):
             
             if maze[i][j] == 4:
                 blue_end = (i, j)
-                
         
-    pos = deque([])
-    pos.append((red_start[0], red_start[1], blue_start[0], blue_start[1], visited_red, visited_blue , 0))
+    pos = deque([(red_start[0], red_start[1], blue_start[0], blue_start[1], visited_red, visited_blue , 0)])
     
     while pos:
         rr, rc, br, bc, vr, vb, cnt = pos.popleft()

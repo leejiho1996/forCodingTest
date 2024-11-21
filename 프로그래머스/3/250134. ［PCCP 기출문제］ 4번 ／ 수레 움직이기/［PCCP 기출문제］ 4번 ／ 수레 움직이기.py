@@ -10,16 +10,16 @@ def solution(maze):
     for i in range(row):
         for j in range(col):
             if maze[i][j] == 5:
-                visited_red = visited_red | 1 << (i * col + j + 1)
-                visited_blue = visited_blue | 1 << (i * col + j + 1)
+                visited_red |= 1 << (i * col + j + 1)
+                visited_blue |= 1 << (i * col + j + 1)
             
             if maze[i][j] == 1:
                 red_start = (i, j)
-                visited_red = visited_red | 1 << (i * col + j + 1)
+                visited_red |= 1 << (i * col + j + 1)
                 
             if maze[i][j] == 2:
                 blue_start = (i, j)
-                visited_blue = visited_blue | 1 << (i * col + j + 1)
+                visited_blue |= 1 << (i * col + j + 1)
             
             if maze[i][j] == 3:
                 red_end = (i, j)

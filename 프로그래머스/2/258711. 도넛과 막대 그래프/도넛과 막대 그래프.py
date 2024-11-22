@@ -27,12 +27,7 @@ def solution(edges):
         search.append(i)
     
     for i in search:
-        if visited[i]:
-            continue
-        
-        if len(graph[i]) == 1 and visited[graph[i][0]]:
-            continue
-            
+
         que = deque([])
         edge = 0
         node = 0

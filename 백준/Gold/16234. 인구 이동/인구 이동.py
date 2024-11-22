@@ -40,7 +40,12 @@ def bfs(unions):
             if L <= diff <= R:
                 unions.append((nr, nc))
 
-    return (elements, total)
+    population = total // len(elements)
+
+    for r, c in elements:
+        graph[r][c] = population
+        
+    return elements
 
 cnt = 0
 while True:
@@ -53,20 +58,10 @@ while True:
             if visited[i][j]:
                 continue
             
-            cur = graph[i][j]
-            for x, y in direc:
-                ni = i + x
-                nj = j + y
-
-                if not (0 <= ni < n) or not (0 <= nj < n):
-                    continue
-                
-                diff = abs(graph[ni][nj] - cur)
-                
-                if L <= diff <= R:
-                    change = True
-                    group.append(bfs(deque([(i, j)])))
-                    break
+            elements = bfs(deque([(i, j)]))
+            
+            if len(elements) > 1:
+                change = True
                 
     if not change:
         print(cnt)
@@ -74,9 +69,3 @@ while True:
     else:
         cnt += 1
 
-    for u, t in group:
-        population = t // len(u)
-
-        for r, c in u:
-            graph[r][c] = population
-            

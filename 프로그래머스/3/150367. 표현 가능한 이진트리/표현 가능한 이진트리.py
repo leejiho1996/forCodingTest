@@ -23,10 +23,10 @@ def divide(n):
         left = cur[half+1:]
         
         if len(cur) > 3:
-            if len(set(right)) > 1:
+            if "1" in right:
                 stack.append(right)
             
-            if len(set(left)) > 1:
+            if "1" in left:
                 stack.append(left)
                 
     return 1

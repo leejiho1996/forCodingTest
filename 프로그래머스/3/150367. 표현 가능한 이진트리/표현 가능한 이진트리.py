@@ -1,10 +1,10 @@
 def toBinary(n):
-    result = []
+    result = ""
     while n > 1:
-        result.append(n % 2)
+        result += str(n % 2)
         n //= 2
     
-    result.append(n)
+    result += str(n)
     
     return result[::-1]
 
@@ -16,7 +16,7 @@ def divide(n):
             
         half = len(cur) // 2
         
-        if cur[half] == 0:
+        if cur[half] == "0":
             return 0
         
         right = cur[:half]
@@ -45,7 +45,7 @@ def solution(numbers):
             else:
                 break
         
-        binary = [0] * ((2**n - 1) - length) + binary
+        binary = "0" * ((2**n - 1) - length) + binary
         
         answer.append(divide(binary))
     

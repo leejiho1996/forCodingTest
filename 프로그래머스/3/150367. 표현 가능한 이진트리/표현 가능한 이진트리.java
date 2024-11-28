@@ -1,20 +1,9 @@
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 class Solution {
-    public String toBinary(long n) {
-        StringBuilder sb = new StringBuilder();
-        
-        while (n > 1) {
-            sb.append(n % 2);
-            n /= 2;
-        }
-        
-        sb.append(n);
-        return sb.reverse().toString();
-    }
     
     public int divide(String n) {
-        Stack<String> stack = new Stack<>();
+        ArrayDeque<String> stack = new ArrayDeque<>();
         stack.push(n);
         
         while (stack.size() > 0) {
@@ -40,7 +29,7 @@ class Solution {
         int[] answer = new int[length];
         
         for (int i = 0; i < length; i++) {
-            String binary = toBinary(numbers[i]);
+            String binary = Long.toString(numbers[i], 2);
             int start = 1;
             int size = binary.length();
             

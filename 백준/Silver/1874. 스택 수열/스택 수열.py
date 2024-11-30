@@ -2,27 +2,29 @@
 import sys
 input = sys.stdin.readline
 
-n = int(input())
+def stackSeq():
+    n = int(input())
 
-cur = 0
-stack = []
-operation = []
-for i in range(n):
-    num = int(input())
+    cur = 0
+    stack = []
+    operation = []
+    for i in range(n):
+        num = int(input())
 
-    if num > cur:
-        for j in range(num - cur):
-            cur += 1
-            operation.append("+")
-            stack.append(cur)
+        if num > cur:
+            for j in range(num - cur):
+                cur += 1
+                operation.append("+")
+                stack.append(cur)
 
-    if stack[-1] != num:
-        print("NO")
-        exit()
+        if stack[-1] != num:
+            print("NO")
+            return
 
-    stack.pop()
-    operation.append("-")
+        stack.pop()
+        operation.append("-")
 
-for i in operation:
-    print(i)
-    
+    for i in operation:
+        print(i)
+
+stackSeq()

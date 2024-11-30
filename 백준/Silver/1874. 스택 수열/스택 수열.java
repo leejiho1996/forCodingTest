@@ -5,7 +5,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         ArrayDeque<Integer> stack = new ArrayDeque<>();
-        List<Character> operation = new ArrayList<>();
+        StringBuilder operation = new StringBuilder();
         int cur = 0;
         int n = Integer.parseInt(st.nextToken());
 
@@ -16,7 +16,7 @@ public class Main {
                 for (int j = 0; j < range; j++) {
                     cur += 1;
                     stack.push(cur);
-                    operation.add('+');
+                    operation.append("+\n");
                 }
             }
 
@@ -25,12 +25,10 @@ public class Main {
                 return;
             }
             stack.pop();
-            operation.add('-');
+            operation.append("-\n");
         }
 
-        for (char c : operation) {
-            System.out.println(c);
-        }
+        System.out.println(operation);
 
     }
     public static void main(String[] args) throws IOException {

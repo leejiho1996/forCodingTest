@@ -1,6 +1,7 @@
 # 등산 마니아
 import sys
 input = sys.stdin.readline
+sys.setrecursionlimit(3000001)
 
 n = int(input())
 graph = [[] for _ in range(n+1)]

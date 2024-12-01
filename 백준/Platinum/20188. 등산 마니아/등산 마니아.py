@@ -4,45 +4,35 @@ input = sys.stdin.readline
 
 n = int(input())
 graph = [[] for _ in range(n+1)]
-top = [""] * (n+1)
+nodes = [1] * (n+1)
 visited = [0] * (n+1)
-visited[1] = 1
 
 for i in range(n-1):
     s, t = map(int,input().split())
     graph[s].append(t)
     graph[t].append(s)
 
-stack = []
-
-for i in graph[1]:
-    stack.append((i, "1 " + str(i)))
-
-while stack:
-    cur, route = stack.pop()
-
-    if visited[cur]:
-        continue
+def dfs(n):
+    if visited[n]:
+        return 0
+    visited[n] = 1
     
-    top[cur] = route
-    visited[cur] = 1
-
-    for i in graph[cur]:
+    for i in graph[n]:
         if visited[i]:
-            continue        
-        stack.append((i, route + " " + str(i)))
+            continue
+        nodes[n] += dfs(i)
+
+    return nodes[n]
+
+def edgeCount(n):
+    return n * (n-1) // 2
+
+dfs(1)
+total = edgeCount(n)
+result = 0
 
 for i in range(2, n+1):
-    top[i] = set(top[i].split(" "))
+    result += total - edgeCount(n - nodes[i])
 
-total = 0
+print(result)
 
-for i in range(1, n+1):
-    for j in range(i+1, n+1):
-        if i == 1:
-            total += len(top[j]) - 1
-            continue
-
-        total += len(top[j].union(top[i])) - 1
-
-print(total)

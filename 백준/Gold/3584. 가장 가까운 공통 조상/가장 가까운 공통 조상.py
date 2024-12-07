@@ -18,9 +18,6 @@ for i in range(t):
     stack_a = [a]
     stack_b = [b]
 
-    parent_a = set()
-    parent_b = set()
-    
     while stack_a:
         p_a = stack_a.pop()
         visited[p_a] = 1

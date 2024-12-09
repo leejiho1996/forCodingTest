@@ -26,7 +26,9 @@ public class Main {
                 matrix[i][j] = matrix[i-1][matrix[i-1][j]];
             }
         }
-
+        
+        StringBuilder sb = new StringBuilder();
+        
         for (int i = 0; i < q; i++) {
             st = new StringTokenizer(br.readLine());
             int n = Integer.parseInt(st.nextToken());
@@ -38,8 +40,8 @@ public class Main {
                     cur = matrix[j][cur];
                 }
             }
-            System.out.println(cur);
+            sb.append(cur).append("\n");
         }
-
+        System.out.println(sb.toString());
     }
 }

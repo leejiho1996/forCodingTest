@@ -35,7 +35,7 @@ public class Main {
             int x = Integer.parseInt(st.nextToken());
             int cur = x;
 
-            for (int j = max; j >= 0; j--) {
+            for (int j = max-1; j >= 0; j--) {
                 if ((n & (1 << j)) != 0) {
                     cur = matrix[j][cur];
                 }

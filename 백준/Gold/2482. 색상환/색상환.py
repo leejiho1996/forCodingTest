@@ -1,7 +1,6 @@
 # 색 상환
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10001)
 
 n = int(input())
 k = int(input())

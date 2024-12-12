@@ -2,112 +2,93 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static List<List<Integer>> trees;
     static int[] depth;
     static int[] visited;
-    static List<Integer> array;
-    static int[] seg;
+    static int[][] dp;
+    static ArrayList<Integer>[] graph;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
-
         int n = Integer.parseInt(br.readLine());
-        trees = new ArrayList<>();
-        for (int i = 0; i <= n; i++) {
-            trees.add(new ArrayList<>());
+        graph = new ArrayList[n+1];
+
+        for (int i = 0; i < n+1; i++) {
+            graph[i] = new ArrayList<>();
         }
-        depth = new int[n + 1];
-        Arrays.fill(depth, -1);
-        depth[0] = Integer.MAX_VALUE;
-        
-        for (int i = 0; i < n - 1; i++) {
+
+        int log = (int) (Math.log(n) / Math.log(2));
+        dp = new int[n+1][log+1];
+        visited = new int[n+1];
+        depth = new int[n+1];
+
+        for (int i = 0; i < n-1; i++) {
             st = new StringTokenizer(br.readLine());
             int n1 = Integer.parseInt(st.nextToken());
             int n2 = Integer.parseInt(st.nextToken());
-            trees.get(n1).add(n2);
-            trees.get(n2).add(n1);
+            graph[n1].add(n2);
+            graph[n2].add(n1);
+        }
+        
+        // 깊이 계산
+        calDepth(1, 0);
+        
+        // 인접행렬 만들기
+        for (int i = 1; i <= log; i++) {
+            for (int j = 1; j < n + 1; j++) {
+                dp[j][i] = dp[dp[j][i-1]][i-1];
+            }
         }
 
-        visited = new int[n + 1];
-        array = new ArrayList<>();
-
-        makeArr(1, 0);
-
-        int arraySize = array.size();
-        seg = new int[arraySize * 4];
-        buildSegmentTree(0, arraySize - 1, 1);
-
         int m = Integer.parseInt(br.readLine());
+
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int n1 = Integer.parseInt(st.nextToken());
             int n2 = Integer.parseInt(st.nextToken());
-            int fn1 = visited[n1] - 1;
-            int fn2 = visited[n2] - 1;
+            sb.append(LCA(n1, n2, log) + "\n");
+        }
+        System.out.println(sb);
+    }
 
-            if (fn1 > fn2) {
-                int temp = fn1;
-                fn1 = fn2;
-                fn2 = temp;
+    static void calDepth(int n, int d) {
+        depth[n] = d;
+        visited[n] = 1;
+
+        for (int i = 0; i < graph[n].size(); i++) {
+            int num = graph[n].get(i);
+            if (visited[num] > 0) {
+                continue;
             }
-
-            sb.append(query(0, arraySize - 1, fn1, fn2, 1)).append("\n");
-        }
-
-        System.out.print(sb);
-    }
-
-    static void makeArr(int node, int d) {
-        array.add(node);
-        visited[node] = array.size();
-        depth[node] = d;
-
-        for (int next : trees.get(node)) {
-            if (visited[next] > 0) continue;
-            makeArr(next, d + 1);
-            array.add(node);
+            dp[num][0] = n;
+            calDepth(num, d+1);
         }
     }
-
-    static void buildSegmentTree(int start, int end, int node) {
-        if (start == end) {
-            seg[node] = array.get(start);
-            return;
+    
+    // LCA 계산 메서드
+    static int LCA(int n1, int n2, int log) {
+        if (depth[n1] > depth[n2]) {
+            int tmp = n1;
+            n1 = n2;
+            n2 = tmp;
         }
 
-        int mid = (start + end) / 2;
-        buildSegmentTree(start, mid, node * 2);
-        buildSegmentTree(mid + 1, end, node * 2 + 1);
-
-        int leftNode = seg[node * 2];
-        int rightNode = seg[node * 2 + 1];
-
-        if (depth[leftNode] > depth[rightNode]) {
-            seg[node] = rightNode;
-        } else {
-            seg[node] = leftNode;
+        for (int i = log; i >= 0; i--) {
+            if (depth[n2] - depth[n1] >= 1 << i) {
+                n2 = dp[n2][i];
+            }
         }
-    }
-
-    static int query(int nodeLeft, int nodeRight, int left, int right, int node) {
-        if (right < nodeLeft || left > nodeRight) {
-            return 0; // return an invalid node index
+        if (n1 == n2) {
+            return n1;
         }
 
-        if (left <= nodeLeft && nodeRight <= right) {
-            return seg[node];
+        for (int i = log; i >= 0; i--) {
+            if (dp[n1][i] != dp[n2][i]) {
+                n1 = dp[n1][i];
+                n2 = dp[n2][i];
+            }
         }
-
-        int mid = (nodeLeft + nodeRight) / 2;
-        int leftQuery = query(nodeLeft, mid, left, right, node * 2);
-        int rightQuery = query(mid + 1, nodeRight, left, right, node * 2 + 1);
-
-        if (depth[leftQuery] > depth[rightQuery]) {
-            return rightQuery;
-        } else {
-            return leftQuery;
-        }
+        return dp[n1][0];
     }
 }

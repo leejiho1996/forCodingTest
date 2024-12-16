@@ -1,10 +1,10 @@
 # [level 3] 표 병합 - 150366 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/150366?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/150366?language=python3) 
 
 ### 성능 요약
 
-메모리: 85.5 MB, 시간: 26.87 ms
+메모리: 10.4 MB, 시간: 75.20 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 12월 16일 22:48:26
+2024년 12월 16일 23:53:02
 
 ### 문제 설명
 

@@ -72,7 +72,7 @@ def solution(commands):
             if cell1 == cell2 : # r, c가 동일하면 스킵
                 continue
                 
-            if graph[cell1] != "" and graph[cell2] == "":  # 셀1 만 값을 가질 경우
+            elif graph[cell1] != "" and graph[cell2] == "":  # 셀1 만 값을 가질 경우
                 doMerge(cell1, cell2)
             
             elif graph[cell1] == "" and graph[cell2] != "": # 셀2 만 값을 가질 경우

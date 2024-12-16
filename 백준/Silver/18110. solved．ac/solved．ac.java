@@ -17,12 +17,7 @@ public class Main {
         }
 
         double cut = n * 0.15;
-        int intCut;
-        if (cut * 10 % 10 >=5) {
-            intCut = (int) cut + 1;
-        } else {
-            intCut = (int) cut;
-        }
+        int intCut = (int) Math.round(cut);
 
         Arrays.sort(difficulty);
         int[] diffCut = new int[(n-(2*intCut))];
@@ -38,10 +33,6 @@ public class Main {
 
         total /= diffCut.length;
 
-        if (total * 10 % 10 >= 5) {
-            System.out.println((int) total + 1);
-        } else {
-            System.out.println((int) total);
-        }
+        System.out.println((int) Math.round(total));
     }
 }

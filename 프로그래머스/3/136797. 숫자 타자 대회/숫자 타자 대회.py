@@ -35,15 +35,17 @@ def dfs(dp, k, i, j):
         return dp[k][i][j]
     
     num = int(number[k])
-    result = float('inf')
     
-    if j != num:
-        result = min(result, dfs(dp, k+1, num, j) + costs[i][num])
+    if i == num:
+        dp[k][i][j] = dfs(dp, k+1, num, j) + 1
+        return dp[k][i][j]
     
-    if i != num:
-        result = min(result, dfs(dp, k+1, i, num) + costs[j][num])
-        
-    dp[k][i][j] = result
+    if j == num:
+        dp[k][i][j] = dfs(dp, k+1, i, num) + 1
+        return dp[k][i][j]
+    
+    dp[k][i][j] = min(dfs(dp, k+1, num, j) + costs[num][i],
+                     dfs(dp, k+1, i, num) + costs[num][j]) 
     
     return dp[k][i][j]
     

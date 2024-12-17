@@ -1,6 +1,6 @@
 # [level 3] 숫자 타자 대회 - 136797 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/136797?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/136797?language=python3) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 12월 17일 22:42:56
+2024년 12월 17일 22:43:00
 
 ### 문제 설명
 

@@ -30,6 +30,8 @@ while que:
 
         if nr >= n or nr < 0 or nc >= m or nc < 0:
             continue
+        elif dist[nr][nc] != -2:
+            continue
 
         que.append((nr, nc, cost+1))
 

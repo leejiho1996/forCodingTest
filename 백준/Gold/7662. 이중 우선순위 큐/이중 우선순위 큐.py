@@ -39,10 +39,6 @@ for i in range(t):
                 dic[-hq.heappop(max_heap)] -= 1
 
             total -= 1
-
-            if total == 0:
-                min_heap = []
-                max_heap = []
     
     if total == 0:
         print("EMPTY")

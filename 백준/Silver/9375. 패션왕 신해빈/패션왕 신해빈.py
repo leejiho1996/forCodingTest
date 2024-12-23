@@ -16,8 +16,8 @@ for i in range(t):
             dic[t] = 1
 
     result = 1
-    for j in dic.keys():
-        result *= dic[j] + 1
+    for j in dic.values():
+        result *= j + 1
 
     print(result - 1)
     

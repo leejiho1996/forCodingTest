@@ -10,15 +10,18 @@ for i in range(t):
     min_heap = []
     max_heap = []
     total = 0
-    visited = [0] * 1000001
+    dic = {}
     for j in range(k):
         cmd, num = input().rstrip().split()
         
         if cmd == "I":
             num = int(num)
-            hq.heappush(min_heap, (num, j))
-            hq.heappush(max_heap, (-num, j))
-            visited[j] = 1
+            hq.heappush(min_heap, num)
+            hq.heappush(max_heap, -num)
+            if num in dic:
+                dic[num] += 1
+            else:
+                dic[num] = 1
             total += 1
             
         elif cmd == "D":
@@ -26,14 +29,14 @@ for i in range(t):
                 continue
             
             if num == "-1":
-                while not visited[min_heap[0][1]]:
+                while not dic[min_heap[0]]:
                     hq.heappop(min_heap)
-                visited[hq.heappop(min_heap)[1]] = 0
+                dic[hq.heappop(min_heap)] -= 1
                     
             elif num == "1":
-                while not visited[max_heap[0][1]]:
+                while not dic[-max_heap[0]]:
                     hq.heappop(max_heap)
-                visited[hq.heappop(max_heap)[1]] = 0
+                dic[-hq.heappop(max_heap)] -= 1
 
             total -= 1
 
@@ -44,8 +47,8 @@ for i in range(t):
     if total == 0:
         print("EMPTY")
     else:
-        while not visited[min_heap[0][1]]:
+        while not dic[min_heap[0]]:
             hq.heappop(min_heap)
-        while not visited[max_heap[0][1]]:
+        while not dic[-max_heap[0]]:
             hq.heappop(max_heap)
-        print(-hq.heappop(max_heap)[0], hq.heappop(min_heap)[0])
+        print(-hq.heappop(max_heap), hq.heappop(min_heap))

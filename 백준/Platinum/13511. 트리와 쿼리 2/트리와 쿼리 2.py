@@ -2,25 +2,21 @@
 import sys
 input = sys.stdin.readline
 import math
-sys.setrecursionlimit(1000001)
+from collections import deque
    
 def calDepth(n):
-    stack = [(n, 0, 0, 1)]
-    while stack:
-        cur, dist, parent, d = stack.pop()
-        if visited[cur]:
-            continue
-        else:
-            visited[cur] = 1
+    que = deque([n])
+    depth[n] = 1
 
-        dp[cur][0] = (parent, dist)
-        depth[cur] = d
-       
+    while que:
+        cur = que.popleft()
+
         for cn, dist in graph[cur]:
-            if visited[cn]:
-                continue
-            stack.append((cn, dist, cur, d+1))
-
+            if dp[cur][0][0] != cn:
+                dp[cn][0] = (cur, dist)
+                depth[cn] = depth[cur] + 1
+                que.append(cn)
+            
 def findNode(n, dist):
     result = n
     for i in range(LOG, -1, -1):
@@ -70,7 +66,6 @@ def LCA(n1, n2):
 
 n = int(input())
 graph = [[] for _ in range(n+1)]
-visited = [0] * (n+1)
 LOG = int(math.log(n, 2))
 depth = [0] * (n+1)
 # dp[i][j] = i의 2^j번째 (조상노드, 거리)

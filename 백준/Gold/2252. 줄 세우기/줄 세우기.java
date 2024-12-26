@@ -41,9 +41,10 @@ public class Main {
                 }
             }
         }
-
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            System.out.print(result[i] + " ");
+            sb.append(result[i]).append(" ");
         }
+        System.out.println(sb);
     }
 }

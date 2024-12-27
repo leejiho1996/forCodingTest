@@ -12,6 +12,13 @@ def dfs(n):
 
     order.append(n)
 
+def dfsR(n, cnt):
+    visited[n] = 1
+    group[n] = cnt
+    for i in graphR[n]:
+        if not visited[i]:
+            dfsR(i, cnt)
+
 t = int(input())
 for i in range(t):
     n, m = map(int,input().split())
@@ -38,21 +45,7 @@ for i in range(t):
         if visited[order[j]]:
             continue
         
-        stack = [order[j]]
-
-        while stack:
-            cur = stack.pop()
-            if visited[cur]:
-                continue
-            else:
-                visited[cur] = 1
-                group[cur] = cnt
-
-            for k in graphR[cur]:
-                if visited[k]:
-                    continue
-                else:
-                    stack.append(k)
+        dfsR(order[j], cnt)
         cnt += 1
 
     for j in range(1, n+1):
@@ -67,5 +60,3 @@ for i in range(t):
             result +=  1
 
     print(result)
-
-    

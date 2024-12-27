@@ -1,65 +1,56 @@
-# Strongly Connected Component
+# SCC (타잔)
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10001)
+sys.setrecursionlimit(100001)
 
-def dfs(n):
-    visited[n] = 1
-
-    for i in graph[n]:
-        if visited[i]:
-            continue
-        else:
-            dfs(i)
+def tarjanSCC(n):
+    global sccCnt
+    global nodeCnt
     
-    order.append(n)
+    discoverd[n] = nodeCnt
+    ret = nodeCnt
+    nodeCnt += 1
+    stack.append(n)
+    
+    for i in graph[n]:
+        if not discoverd[i]:
+            ret = min(ret, tarjanSCC(i))
+        elif not group[i]:
+            ret = min(ret, discoverd[i])
+
+    if ret == discoverd[n]:
+        scc = []
+        while stack:
+            cur = stack.pop()
+            scc.append(cur)
+            group[cur] = sccCnt
+            
+            if cur == n:
+                scc.sort()
+                scc.append(-1)
+                result.append(scc)
+                sccCnt += 1
+                break
+            
+    return ret
     
 v, e = map(int,input().split())
 graph = [[] for _ in range(v+1)]
-graphR = [[] for _ in range(v+1)]
-visited = [0] * (v+1)
-order = []
+stack = []
 result = []
-
+discoverd = [0] * (v+1)
+group = [0] * (v+1)
+nodeCnt = 1
+sccCnt = 1
 for i in range(e):
-    start, to = map(int,input().split())
-    graph[start].append(to)
-    graphR[to].append(start)
-    
+    s, t = map(int,input().split())
+    graph[s].append(t)
+
 for i in range(1, v+1):
-    if visited[i]:
-        continue
-    else:
-        dfs(i)
-
-visited = [0] * (v+1)
-for i in range(v-1, -1, -1):
-    node = order[i]
-    scc = []
-    if visited[node]:
-        continue
-    
-    stack = [node]
-    while stack:
-        cur = stack.pop()
-
-        if visited[cur]:
-            continue
-        else:
-            visited[cur] = 1
-            scc.append(cur)
-
-        for j in graphR[cur]:
-            if visited[j]:
-                continue
-            else:
-                stack.append(j)
-    scc.sort()
-    scc.append(-1)
-    result.append(scc)
+    if not discoverd[i]:
+        tarjanSCC(i)
 
 result.sort()
 print(len(result))
 for i in result:
     print(*i)
-    

@@ -8,7 +8,7 @@ n = int(input())
 inorder = list(map(int,input().split()))
 postorder = list(map(int,input().split()))
 
-inorder_dic = {}
+inorder_dic = [-1] * (n+1)
 
 for i in range(n):
     inorder_dic[inorder[i]] = i

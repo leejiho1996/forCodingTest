@@ -50,7 +50,7 @@ public class Main {
 
         for (int i = 0; i < t; i++) {
             if (i != 0) {
-                System.out.println(br.readLine().strip());
+                System.out.println(br.readLine());
             }
             st = new StringTokenizer(br.readLine());
             int n = Integer.parseInt(st.nextToken());

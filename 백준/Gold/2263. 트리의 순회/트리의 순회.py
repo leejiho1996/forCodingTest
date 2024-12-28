@@ -24,7 +24,6 @@ def preOrder(inStart, postStart, postEnd):
     rightPostStart = postStart + rootIdx - inStart
     rightPostEnd = postEnd - 1
     
-
     preOrder(inStart, postStart, rightPostStart-1)
     preOrder(rootIdx+1, rightPostStart, rightPostEnd)
 

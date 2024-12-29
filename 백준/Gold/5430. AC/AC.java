@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -9,11 +7,11 @@ public class Main {
         int t = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < t; i++) {
-            String function = br.readLine().trim();
-            int length = Integer.parseInt(br.readLine().trim());
-            String tmp = br.readLine().trim();
+            String function = br.readLine();
+            int length = Integer.parseInt(br.readLine());
+            String tmp = br.readLine();
 
-            Deque<String> deque = new LinkedList<>();
+            Deque<String> deque = new ArrayDeque<>();
             if (length > 0) {
                 String[] elements = tmp.substring(1, tmp.length() - 1).split(",");
                 for (String elem : elements) {
@@ -55,3 +53,4 @@ public class Main {
         }
     }
 }
+

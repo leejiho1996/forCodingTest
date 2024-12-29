@@ -25,7 +25,6 @@ for i in range(t):
                 que.pop()
             else:
                 que.popleft()
-
             length -= 1
     
     if result == "error":

@@ -102,6 +102,8 @@ public class Main {
         dp = new long [n+1][LOG+1][2];
         depth = new int[n+1];
         graph = new ArrayList[n+1];
+        StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < n+1; i++) {
             graph[i] = new ArrayList<>();
         }
@@ -138,17 +140,18 @@ public class Main {
             long distN2 = result[3];
 
             if (cmd == 1) {
-                System.out.println(total);
+                sb.append(total).append('\n');
             } else {
                int seq = Integer.parseInt(st.nextToken());
                if (seq == distN1+1) {
-                   System.out.println(parent);
+                   sb.append(parent).append('\n');
                } else if (distN1 >= seq) {
-                   System.out.println(findNode(n1, seq - 1));
+                   sb.append(findNode(n1, seq - 1)).append('\n');
                } else {
-                   System.out.println(findNode(n2, (distN2 - (seq - distN1 - 1))));
+                   sb.append(findNode(n2, (distN2 - (seq - distN1 - 1)))).append('\n');
                }
             }
         }
+        System.out.println(sb);
     }
 }

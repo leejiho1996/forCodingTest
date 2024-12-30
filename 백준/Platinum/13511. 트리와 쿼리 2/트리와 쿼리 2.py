@@ -3,7 +3,8 @@ import sys
 input = sys.stdin.readline
 import math
 from collections import deque
-   
+
+# depth 계산
 def calDepth(n):
     que = deque([n])
     depth[n] = 1
@@ -16,7 +17,8 @@ def calDepth(n):
                 dp[cn][0] = (cur, dist)
                 depth[cn] = depth[cur] + 1
                 que.append(cn)
-            
+
+# n번 노드 기준 dist 위에 존재하는 부모 노드 검색
 def findNode(n, dist):
     result = n
     for i in range(LOG, -1, -1):
@@ -28,10 +30,11 @@ def findNode(n, dist):
         
     return result
 
+# LCA를 계산해 총 이동거리, LCA, 각 노드별 LCA까지 이동횟수 리턴
 def LCA(n1, n2):
     total = 0 # 총 거리 
-    dist_n1 = 0 # n1의 몇번째 부모인지 담는 변수
-    dist_n2 = 0 # n2의 몇번째 부모인지 담는 변수
+    dist_n1 = 0 # LCA가 n1의 몇번째 부모인지 담는 변수
+    dist_n2 = 0 # LCA가 n2의 몇번째 부모인지 담는 변수
     isChange = False
     
     if depth[n1] > depth[n2]:
@@ -49,7 +52,7 @@ def LCA(n1, n2):
         dist_n1, dist_n2 = dist_n2, dist_n1
     
     if n1 == n2:
-        return (total, n1, dist_n1, dist_n2)
+        return (total, dist_n1, dist_n2)
 
     for i in range(LOG, -1, -1):
         if dp[n1][i][0] != dp[n2][i][0]:
@@ -62,7 +65,7 @@ def LCA(n1, n2):
             
     total += dp[n1][0][1]
     total += dp[n2][0][1]
-    return (total, dp[n1][0][0], dist_n1+1, dist_n2+1)
+    return (total, dist_n1+1, dist_n2+1)
 
 n = int(input())
 graph = [[] for _ in range(n+1)]
@@ -88,16 +91,17 @@ for i in range(m):
     cmd = list(map(int,input().split()))
     u = cmd[1]
     k = cmd[2]
-    total, parent, dist_n1, dist_n2 = LCA(u, k)
+    total, dist_n1, dist_n2 = LCA(u, k)
+
     if cmd[0] == 1:
         print(total)
         continue
     
     seq = cmd[3]
-    if dist_n1 + 1 == seq:
-        print(parent)
-    elif dist_n1 >= seq:
+    
+   
+    if dist_n1 >= seq: # 찾고자하는 노드가 n1노드부터 LCA 사이에 있는 경우
         print(findNode(u, seq - 1))
-    else:
+    else: # 찾고자하는 노드가 n2노드부터 LCA 사이에 있는 경우
         print(findNode(k, dist_n2 - (seq - dist_n1 - 1)))
     

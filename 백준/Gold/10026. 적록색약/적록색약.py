@@ -10,9 +10,8 @@ def dfs(r, c, check):
         visit = visited
         
     visit[r][c] = 1
-    direction = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-
-    for x, y in direction:
+    
+    for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
         nx, ny = r + x, c + y
         if nx >= n or nx < 0 or ny >= n or ny < 0:
             continue

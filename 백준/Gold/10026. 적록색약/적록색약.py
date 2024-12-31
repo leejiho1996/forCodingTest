@@ -22,8 +22,7 @@ def dfs(r, c, check):
             dfs(nx, ny, check)
 
         # 색약인경우    
-        if check:
-            if (graph[r][c] == "R" or graph[r][c] == "G") and (graph[nx][ny] == "R" or graph[nx][ny] == "G"):
+        if check and graph[nx][ny] != "B" and graph[r][c] != "B":
                 dfs(nx, ny, check)
         
 n = int(input())

@@ -16,7 +16,7 @@ for i in range(10):
 
 for i in range(1, n+1):
     for j in range(10):
-        left = (target[i] - start[i] - j + 20) % 10
+        left = (target[i] - start[i] - j) % 10
         right = 10 - left
 
         dp[i][j] = min(dp[i][j], dp[i-1][j] + right)

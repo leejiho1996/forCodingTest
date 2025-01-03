@@ -1,7 +1,7 @@
 # 2-SAT-3
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(1000001)
+sys.setrecursionlimit(100001)
 
 def tarjan(n):
     global nodeCnt
@@ -29,7 +29,7 @@ def tarjan(n):
 
     return ret
 
-def solveNot(num):
+def makeNot(num):
     if num > n:
         return num - n
     else:
@@ -46,24 +46,20 @@ sccCnt = 1
 for i in range(m):
     b1, b2 = map(int,input().split())
     if b1 < 0:
-        b1 = -b1
-    else:
-        b1 = b1 + n
+        b1 = n-b1
 
     if b2 < 0:
-        b2 = -b2
-    else:
-        b2 = b2 + n
+        b2 = n-b2
         
-    graph[solveNot(b1)].append(b2)
-    graph[solveNot(b2)].append(b1)
+    graph[makeNot(b1)].append(b2)
+    graph[makeNot(b2)].append(b1)
 
 for i in range(1, 2*n+1):
     if not discovered[i]:
         tarjan(i)
 
 for i in range(1, 2*n+1):
-    if sccGroup[i] == sccGroup[solveNot(i)]:
+    if sccGroup[i] == sccGroup[makeNot(i)]:
         print(0)
         exit()
 print(1)

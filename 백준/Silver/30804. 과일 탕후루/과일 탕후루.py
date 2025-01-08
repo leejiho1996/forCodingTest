@@ -4,8 +4,7 @@ input = sys.stdin.readline
 
 n = int(input())
 tang = list(map(int,input().split()))
-stack = []
-max_length = [0] * n
+start = -1
 types = set()
 result = 0
 
@@ -14,16 +13,13 @@ for i in range(n):
     types.add(cur)
 
     if len(types) > 2:
-        cnt = 0
-        while stack and stack[-1] == tang[i-1]:
-            stack.pop()
-            cnt += 1
+        start = i-2
+        while tang[start] == tang[i-1]:
+            start -= 1
             
         types = {cur, tang[i-1]}
-        stack = [cur]
-        max_length[i] = cnt + 1
+        result = max(result, i - start)
     else:
-        max_length[i] = max_length[i-1] + 1
-        stack.append(cur)
+        result = max(result, i-start)
 
-print(max(max_length))
+print(result)

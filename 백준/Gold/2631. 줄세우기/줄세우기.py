@@ -24,6 +24,6 @@ for i in range(n):
         else:
             start = mid + 1
 
-    lis[start] = num
+    lis[end+1] = num
 
 print(n - len(lis))

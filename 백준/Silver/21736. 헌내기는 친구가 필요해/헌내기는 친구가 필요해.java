@@ -1,11 +1,13 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(); // 행의 수
-        int m = sc.nextInt(); // 열의 수
-        sc.nextLine(); 
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken()); // 행의 수
+        int m = Integer.parseInt(st.nextToken()); // 열의 수
 
         char[][] graph = new char[n][m];
         boolean[][] visited = new boolean[n][m];
@@ -13,7 +15,7 @@ public class Main {
         int startRow = 0, startCol = 0; // 도연이의 시작 위치
 
         for (int i = 0; i < n; i++) {
-            String row = sc.nextLine();
+            String row = br.readLine();
             for (int j = 0; j < m; j++) {
                 graph[i][j] = row.charAt(j);
                 if (graph[i][j] == 'I') {
@@ -23,11 +25,11 @@ public class Main {
             }
         }
 
-        Queue<int[]> que = new LinkedList<>();
+        ArrayDeque<int[]> que = new ArrayDeque<>();
         que.add(new int[]{startRow, startCol});
 
         while (!que.isEmpty()) {
-            int[] current = que.poll();
+            int[] current = que.removeFirst();
             int cr = current[0];
             int cc = current[1];
 
@@ -54,7 +56,7 @@ public class Main {
                     continue; // 이미 방문했거나 장애물인 경우
                 }
 
-                que.add(new int[]{nr, nc});
+                que.addLast(new int[]{nr, nc});
             }
         }
 
@@ -63,5 +65,6 @@ public class Main {
         } else {
             System.out.println("TT");
         }
+
     }
 }

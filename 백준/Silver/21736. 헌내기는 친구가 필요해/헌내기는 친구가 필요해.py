@@ -33,6 +33,8 @@ while que:
 
         if (0 > nr or nr >= n or 0 > nc or nc >= m):
             continue
+        elif visited[nr][nc]:
+            continue
         elif graph[nr][nc] == "X":
             continue
 

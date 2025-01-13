@@ -5,7 +5,6 @@ input = sys.stdin.readline
 n, m = map(int,input().split())
 nums = list(map(int,input().split()))
 nums.sort()
-visited = set()
 choice = [0] * n
 
 def backTrack(seq, cnt):
@@ -13,6 +12,7 @@ def backTrack(seq, cnt):
         print(seq)
         return
 
+    prev = -1
     for i in range(n):
         if choice[i]:
             continue
@@ -25,8 +25,8 @@ def backTrack(seq, cnt):
         else:
             nextSeq = seq + " " + str(num)
 
-        if nextSeq not in visited:
-            visited.add(nextSeq)
+        if num != prev:
+            prev = num
             backTrack(nextSeq, cnt+1)
         choice[i] = 0
         

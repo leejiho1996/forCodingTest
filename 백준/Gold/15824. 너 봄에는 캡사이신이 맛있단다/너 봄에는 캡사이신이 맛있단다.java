@@ -26,14 +26,15 @@ public class Main {
         Arrays.sort(nums);
 
         for (int i = 0; i < n; i++) {
-            aggSum[i+1] = (aggSum[i] + nums[i]) % MOD;
-            twoSquare[i+1] = twoSquare[i] * 2 % MOD;
+            aggSum[i+1] = (aggSum[i] + nums[i]) % MOD; // 누적 합의 모듈러 연산
+            twoSquare[i+1] = (twoSquare[i] * 2) % MOD; // 2의 거듭제곱의 모듈러 연산
         }
 
         for (int i = 0; i < n-1; i++) {
-            result += twoSquare[i] * ((aggSum[n] - aggSum[i+1] - aggSum[n-1-i] + MOD) % MOD) % MOD;
-            result %= MOD;
+            long diff = (aggSum[n] - aggSum[i+1] - aggSum[n-1-i] + MOD) % MOD; // 음수 방지
+            result = (result + twoSquare[i] * diff % MOD) % MOD;
         }
+
         System.out.println(result);
     }
 }

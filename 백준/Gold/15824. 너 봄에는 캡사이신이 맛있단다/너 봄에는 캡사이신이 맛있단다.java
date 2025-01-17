@@ -13,8 +13,8 @@ public class Main {
 
         int n = Integer.parseInt(br.readLine());
         nums = new int[n];
-        aggSum = new long[n+1];
-        twoSquare = new long[n+1];
+        aggSum = new long[n + 1];
+        twoSquare = new long[n + 1];
         twoSquare[0] = 1;
 
         st = new StringTokenizer(br.readLine());
@@ -25,16 +25,21 @@ public class Main {
 
         Arrays.sort(nums);
 
+        // 누적 합과 2의 거듭제곱 계산
         for (int i = 0; i < n; i++) {
-            aggSum[i+1] = (aggSum[i] + nums[i]) % MOD; // 누적 합의 모듈러 연산
-            twoSquare[i+1] = (twoSquare[i] * 2) % MOD; // 2의 거듭제곱의 모듈러 연산
+            aggSum[i + 1] = (aggSum[i] + nums[i]) % MOD;
+            twoSquare[i + 1] = (twoSquare[i] * 2) % MOD;
         }
 
-        for (int i = 0; i < n-1; i++) {
-            long diff = (aggSum[n] - aggSum[i+1] - aggSum[n-1-i] + MOD) % MOD; // 음수 방지
+        // 결과 계산
+        for (int i = 0; i < n - 1; i++) {
+            // (aggSum[n] - aggSum[i+1] - aggSum[n-1-i] + MOD) % MOD
+            long diff = ((aggSum[n] - aggSum[i + 1] - aggSum[n - 1 - i]) % MOD + MOD) % MOD;
+            // 곱셈을 long으로 처리하고 결과를 업데이트
             result = (result + twoSquare[i] * diff % MOD) % MOD;
         }
 
+        // 최종 결과 출력
         System.out.println(result);
     }
 }

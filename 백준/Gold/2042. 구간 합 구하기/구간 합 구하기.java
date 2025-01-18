@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
@@ -34,9 +35,11 @@ public class Main {
                 update(b - 1, c - nums[b - 1], 0, n - 1, 1);
                 nums[b - 1] = c;
             } else {
-                System.out.println(query(b - 1, (int) c - 1, 0, n - 1, 1));
+                sb.append(query(b - 1, (int) c - 1, 0, n - 1, 1)).append('\n');
             }
         }
+
+        System.out.println(sb);
     }
 
     static long segment(int left, int right, int node) {

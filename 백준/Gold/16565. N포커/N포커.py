@@ -12,7 +12,8 @@ for i in range(1, 53):
     dp[i][0] = 1
     dp[i][i] = 1
     dp[i][1] = i
-    for j in range(1, i//2+1):
+    dp[i][i-1] = i
+    for j in range(2, i//2+1):
         dp[i][j] = (dp[i-1][j] + dp[i-1][j-1]) % MOD
         dp[i][i-j] = dp[i][j]
 

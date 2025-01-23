@@ -19,7 +19,7 @@ for i in range(t):
         s, e, t = map(int,input().split())
         edges.append((s,e,-t))
         
-    for j in range(n):
+    for j in range(n-1):
         for start, to, time in edges:
             if upper[start] + time < upper[to]:
                 upper[to] = upper[start] + time
@@ -28,7 +28,6 @@ for i in range(t):
         if upper[start] + time < upper[to]:
                 check = True
                 break
-    
     if check:
         print("YES")
     else:

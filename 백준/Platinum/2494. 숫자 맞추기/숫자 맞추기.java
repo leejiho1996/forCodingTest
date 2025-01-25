@@ -48,7 +48,7 @@ public class Main {
             }
         }
 
-        int result = 1000000;
+        int result = 100000;
         int[] resultSeq = new int[n];
         int idx = 0;
         int cnt = n;

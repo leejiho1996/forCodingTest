@@ -10,7 +10,7 @@ def makeAllCases(cnt, choices, total, sumList):
         
     for i in range(6):
         makeAllCases(cnt+1, choices, total + choices[cnt][i], sumList)
- 
+
 def combination(A, B, diceA, diceB):
     global result
     global maxx

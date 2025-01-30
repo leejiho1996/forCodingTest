@@ -11,15 +11,14 @@ for i in range(n):
     min_tmp = min_dp.copy()
     max_tmp = max_dp.copy()
     
-    for j in range(3):
-        if j == 0:
-            min_dp[j] = min(min_tmp[0], min_tmp[1]) + num[j]
-            max_dp[j] = max(max_tmp[0], max_tmp[1]) + num[j]
-        elif j == 1:
-            min_dp[j] = min(min_tmp[0], min_tmp[1], min_tmp[2]) + num[j]
-            max_dp[j] = max(max_tmp[0], max_tmp[1], max_tmp[2]) + num[j]
-        else:
-            min_dp[j] = min(min_tmp[1], min_tmp[2]) + num[j]
-            max_dp[j] = max(max_tmp[1], max_tmp[2]) + num[j]
+
+    min_dp[0] = min(min_tmp[0], min_tmp[1]) + num[0]
+    max_dp[0] = max(max_tmp[0], max_tmp[1]) + num[0]
+       
+    min_dp[1] = min(min_tmp[0], min_tmp[1], min_tmp[2]) + num[1]
+    max_dp[1] = max(max_tmp[0], max_tmp[1], max_tmp[2]) + num[1]
+        
+    min_dp[2] = min(min_tmp[1], min_tmp[2]) + num[2]
+    max_dp[2] = max(max_tmp[1], max_tmp[2]) + num[2]
 
 print(max(max_dp), min(min_dp))

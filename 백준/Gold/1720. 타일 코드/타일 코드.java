@@ -4,13 +4,12 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws  Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int[] dp = new int[31];
+        int n = Integer.parseInt(br.readLine());
+        int[] dp = new int[31]; // 완전 대칭인 타일의 갯수
         Arrays.fill(dp, 1);
         dp[2] = 3;
 
-        int[] dpOrigin = new int[31];
+        int[] dpOrigin = new int[31]; // 모든 타일의 갯수
         Arrays.fill(dpOrigin, 1);
         dpOrigin[2] = 3;
 

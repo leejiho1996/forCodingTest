@@ -1,15 +1,16 @@
 # 아기 상어
 import sys
 input = sys.stdin.readline
-import heapq as hq
 from collections import deque
     
 def find(i, j):
     visited = [[0] * n for _ in range(n)]
     que = deque([(i, j, 0)])
-    heap = []
     direc = [(-1, 0), (0, -1), (0, 1), (1, 0)]
-
+    minDist = 10000
+    row = 0
+    col = 0
+    
     while que:
         r, c, dis = que.popleft()
 
@@ -19,8 +20,18 @@ def find(i, j):
             visited[r][c] = 1
 
         if graph[r][c] != 0 and graph[r][c] < sharkSize:
-            hq.heappush(heap, (dis, r, c))
-        
+            if dis < minDist:
+                minDist = dis
+                row = r
+                col = c
+            elif dis == minDist:
+                if r < row:
+                    row = r
+                    col = c
+                elif r == row and c < col:
+                    row = r
+                    col = c
+                
         for x, y in direc:
             nr, nc = r + x, c + y
 
@@ -31,7 +42,7 @@ def find(i, j):
             else:
                 que.append((nr, nc, dis+1))
 
-    return heap
+    return (minDist, row, col)
 
 n = int(input())
 graph = []
@@ -48,12 +59,11 @@ for i in range(n):
     graph.append(row)
 
 while True:
-    heap = find(shark[0], shark[1])
+    dis, r, c = find(shark[0], shark[1])
 
-    if not heap:
+    if dis == 10000:
         break
 
-    dis, r, c = hq.heappop(heap)
     total += dis
     graph[r][c] = 0
     shark = (r, c)

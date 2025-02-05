@@ -2,6 +2,29 @@
 import sys
 input = sys.stdin.readline
 
+def divide():
+    newGraph = [[0] * c for _ in range(r)]
+    
+    for i in range(r):
+        for j in range(c):
+            if graph[i][j] <= 0:
+                continue
+
+            newGraph[i][j] += graph[i][j]
+            
+            for x, y in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nr, nc = i + x, j + y
+                
+                if nr < 0 or nr >= r or nc < 0 or nc >= c:
+                    continue
+                elif (nr == puri1 and nc == 0) or (nr == puri2 and nc == 0):
+                    continue
+                else:
+                    newGraph[nr][nc] += graph[i][j] // 5
+                    newGraph[i][j] -= graph[i][j] // 5
+                    
+    return newGraph
+
 r, c, t = map(int,input().split())
 graph = []
 move = []
@@ -60,27 +83,7 @@ while True:
         dy = -1
 
 while t:
-    newGraph = [[0] * c for _ in range(r)]
-    
-    for i in range(r):
-        for j in range(c):
-            if graph[i][j] <= 0:
-                continue
-
-            newGraph[i][j] += graph[i][j]
-            
-            for x, y in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                nr, nc = i + x, j + y
-                
-                if nr < 0 or nr >= r or nc < 0 or nc >= c:
-                    continue
-                elif (nr == puri1 and nc == 0) or (nr == puri2 and nc == 0):
-                    continue
-                else:
-                    newGraph[nr][nc] += graph[i][j] // 5
-                    newGraph[i][j] -= graph[i][j] // 5
-
-    graph = newGraph
+    graph = divide() 
 
     for x, y, nx, ny in move:
         if (nx == puri1 and ny == 0) or (nx == puri2 and ny == 0):

@@ -2,23 +2,26 @@
 import sys
 input = sys.stdin.readline
 
-def backtrack(limit, length, cnt):
+def calDist():
     global result
+
+    total = 0
+    for hr, hc in house:
+        dist = 2500
+        for cr, cc in chicken:
+            if graph[cr][cc] == 2:
+                continue
+            else:
+                dist = min(dist, abs(hr-cr) + abs(hc-cc))
+        total += dist
+
+    result = min(result,total)
+    return
+
+def backtrack(limit, length, cnt):
     
     if cnt == m:
-        total = 0
-        for hr, hc in house:
-            dist = 2500
-            for cr, cc in chicken:
-                if graph[cr][cc] == 2:
-                    continue
-                else:
-                    dist = min(dist, abs(hr - cr) + abs(hc - cc))
-
-            total += dist
-
-        result = min(result, total)
-            
+        calDist()
         return 
 
     for i in range(limit, length):

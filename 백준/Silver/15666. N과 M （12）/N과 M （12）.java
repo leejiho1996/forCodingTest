@@ -28,10 +28,11 @@ public class Main {
 
     static void backtrack(int limit, int length ,LinkedList<Integer> nums) {
         if (nums.size() == m) {
+            StringBuilder sb = new StringBuilder();
             for (int i : nums) {
-                System.out.print(i + " ");
+                sb.append(i + " ");
             }
-            System.out.println();
+            System.out.println(sb);
             return;
         }
 

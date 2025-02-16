@@ -1,67 +1,28 @@
-# 구슬 탈출2
+# 구슬탈출2 bfs
 import sys
 input = sys.stdin.readline
+from collections import deque
 
-def backtrack(cnt, red, blue, last):
-    global result
-    
-    if cnt > 10:
-        return
+def move(r, c, dx, dy):
+    cnt = 0
 
-    if red == end and blue == end:
-        return
-    elif blue == end:
-        return
-    elif red == end:
-        result = min(result, cnt)
-        return
-
-    for i in range(4):
-        if i == last:
-            continue
-
-        dx, dy = direc[i][0], direc[i][1]
-        
-        if direc[i][2] == 1:
-            if red < blue:
-                redAfter = moveBall(red, blue, dx, dy)
-                blueAfter = moveBall(blue, redAfter, dx, dy)
-            
-            else:
-                blueAfter = moveBall(blue, red, dx, dy)
-                redAfter = moveBall(red, blueAfter, dx, dy)
-        else:
-            if red < blue:
-                blueAfter = moveBall(blue, red, dx, dy)
-                redAfter = moveBall(red, blueAfter, dx, dy)
-            else:
-                redAfter = moveBall(red, blue, dx, dy)
-                blueAfter = moveBall(blue, redAfter, dx, dy)
-
-        backtrack(cnt+1, redAfter, blueAfter, i)
-
-def moveBall(ball1, ball2, dx, dy):
-    r, c = ball1
-    
     while True:
-        if (r+dx, c+dy) == end:
-            return(r+dx, c+dy)
-                
-        elif graph[r+dx][c+dy] == "#" or (r+dx, c+dy) == ball2:
-            return (r, c)
-            break
-
+        if graph[r][c] == "O":
+            return [r, c, cnt]
+        elif graph[r+dx][c+dy] == "#":
+            return [r, c, cnt]
+        
         r += dx
         c += dy
-
-    return (r, c)
-
+        cnt += 1
+        
 n, m = map(int,input().split())
 result = 1000
 graph = []
+visited = [[[[0] * m for i in range(n)] for j in range(m)] for k in range(n)]
 
 # 아래, 위, 오른쪽, 왼쪽 이동
-direc = [(1, 0, 0), (-1, 0, 1), (0, 1, 0), (0, -1, 1)]
+direc = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
 for i in range(n):
     row = list(input().rstrip())
@@ -69,15 +30,52 @@ for i in range(n):
 
     for j in range(m):
         if row[j] == "R":
-            red = (i, j)
+            redR = i
+            redC = j
         elif row[j] == "B":
-            blue = (i, j)
+            blueR = i
+            blueC = j
         elif row[j] == "O":
-            end = (i, j)
+            outR = i
+            outC = j
 
-backtrack(0, red, blue, -1)
+que = deque([])
+que.append((redR, redC, blueR, blueC, 0))
+
+while que:
+    rr, rc, br, bc, cnt = que.popleft()
+
+    if cnt >= 10 or cnt > result:
+        continue
+
+    if visited[rr][rc][br][bc]:
+        continue
+    else:
+        visited[rr][rc][br][bc] = 1
+
+    for dx, dy in direc:
+        nRed = move(rr, rc, dx, dy)
+        nBlue = move(br, bc, dx, dy)
+
+        if nBlue[0] == outR and nBlue[1] == outC:
+            continue
+        elif nRed[0] == outR and nRed[1] == outC:
+            result = min(result, cnt+1)
+            break
+
+        if nRed[0] == nBlue[0] and nRed[1] == nBlue[1]:
+            if nRed[2] < nBlue[2]:
+                nBlue[0] -= dx
+                nBlue[1] -= dy
+            else:
+                nRed[0] -= dx
+                nRed[1] -= dy
+
+        if not visited[nRed[0]][nRed[1]][nBlue[0]][nBlue[1]]:
+            que.append((nRed[0], nRed[1], nBlue[0], nBlue[1], cnt+1))
 
 if result == 1000:
     print(-1)
 else:
     print(result)
+        

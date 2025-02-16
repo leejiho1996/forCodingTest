@@ -19,36 +19,26 @@ def backtrack(cnt, red, blue, last):
     for i in range(4):
         if i == last:
             continue
+
+        dx, dy = direc[i][0], direc[i][1]
         
-        redBefore = red
-        blueBefore = blue
-        redAfter, blueAfter = move(red, blue, direc[i][0], direc[i][1], direc[i][2])
+        if direc[i][2] == 1:
+            if red < blue:
+                redAfter = moveBall(red, blue, dx, dy)
+                blueAfter = moveBall(blue, redAfter, dx, dy)
+            
+            else:
+                blueAfter = moveBall(blue, red, dx, dy)
+                redAfter = moveBall(red, blueAfter, dx, dy)
+        else:
+            if red < blue:
+                blueAfter = moveBall(blue, red, dx, dy)
+                redAfter = moveBall(red, blueAfter, dx, dy)
+            else:
+                redAfter = moveBall(red, blue, dx, dy)
+                blueAfter = moveBall(blue, redAfter, dx, dy)
 
         backtrack(cnt+1, redAfter, blueAfter, i)
-
-def move(red, blue, dx, dy, reverse):
-
-    # 왼쪽, 위로 이동은 위치가 작은 쪽이 먼저 이동해야함
-    if reverse == 1:
-        if red < blue:
-            red = moveBall(red, blue, dx, dy)
-            blue = moveBall(blue, red, dx, dy)
-            
-        else:
-            blue = moveBall(blue, red, dx, dy)
-            red = moveBall(red, blue, dx, dy)
-            
-
-    # 아래, 오른쪽 이동은 큰 쪽이 먼저 이동해야함
-    else:
-        if red < blue:
-            blue = moveBall(blue, red, dx, dy)
-            red = moveBall(red, blue, dx, dy)
-        else:
-            red = moveBall(red, blue, dx, dy)
-            blue = moveBall(blue, red, dx, dy)
-
-    return (red, blue)
 
 def moveBall(ball1, ball2, dx, dy):
     r, c = ball1

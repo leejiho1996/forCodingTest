@@ -38,16 +38,6 @@ public class Main {
             }
         }
 
-        bfs();
-
-        if (result == 1000) {
-            System.out.println(-1);
-        } else {
-            System.out.println(result);
-        }
-    }
-
-    private static void bfs() {
         LinkedList<int[]> que = new LinkedList<>();
         que.add(new int[]{redR, redC, blueR, blueC, 0});
 
@@ -55,6 +45,10 @@ public class Main {
             int[] cur  = que.pollFirst();
             int rR = cur[0]; int rC = cur[1]; int bR = cur[2]; int bC = cur[3];
             int cnt = cur[4];
+
+            if (result < cnt) {
+                break;
+            }
 
             if (cnt >= 10) {
                 continue;
@@ -69,37 +63,45 @@ public class Main {
                 int[] nRed = move(rR, rC, nx, ny);
                 int[] nBlue = move(bR, bC, nx, ny);
 
-                if (nBlue[0] == outR && nBlue[1] == outC) {
+                if (nBlue[0] == outR && nBlue[1] == outC) { // 파란 구슬이 탈출했다면 continue
                     continue;
-                } else if (nRed[0] == outR && nRed[1] == outC) {
+                } else if (nRed[0] == outR && nRed[1] == outC) { // 빨간 구슬이 탈출헀다면 break
                     result = Math.min(result, cnt+1);
-                    return;
+                    break;
                 }
 
-                if (nRed[0] == nBlue[0] && nRed[1] == nBlue[1]) {
-                    if (nRed[2] < nBlue[2]) {
+                if (nRed[0] == nBlue[0] && nRed[1] == nBlue[1]) { // 빨간 구슬과 파란 구슬의 위치가 같을 때
+                    if (nRed[2] < nBlue[2]) { // 파란 구슬의 이동횟수가 많다면 파란공이 뒤에 있었던 것이므로 반대로 1칸 움직인다
                         nBlue[0] -= nx;
                         nBlue[1] -= ny;
-                    } else {
+                    } else { // 빨간 구슬의 이동횟수가 많다면 파란공이 뒤에 있었던 것이므로 반대로 1칸 움직인다
                         nRed[0] -= nx;
                         nRed[1] -= ny;
                     }
                 }
 
-                if (!visited[nRed[0]][nRed[1]][nBlue[0]][nBlue[1]]) {
+                if (!visited[nRed[0]][nRed[1]][nBlue[0]][nBlue[1]]) { // 방문한 포지션이 아니라면 큐에 넣는다
                     que.add(new int[]{nRed[0], nRed[1], nBlue[0], nBlue[1], cnt+1});
                 }
             }
         }
+
+        if (result == 1000) {
+            System.out.println(-1);
+        } else {
+            System.out.println(result);
+        }
+
     }
 
     static int[] move(int r, int c, int dx, int dy) {
         int cnt = 0;
 
+        // dx, dy 방향으로 이동 실행
         while (true) {
-            if (graph[r+dx][c+dy] == 'O') {
-                return new int[]{r+dx, c+dy, cnt+1};
-            } else if (graph[r+dx][c+dy] == '#') {
+            if (graph[r][c] == 'O') { // 출구라면 return
+                return new int[]{r, c, cnt};
+            } else if (graph[r+dx][c+dy] == '#') { // 다음이 벽이라면 return
                 return new int[] {r, c, cnt};
             }
             r += dx;

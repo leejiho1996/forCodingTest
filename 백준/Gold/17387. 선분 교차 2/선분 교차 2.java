@@ -14,13 +14,13 @@ public class Main {
         int[] C = new int[] {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
         int[] D = new int[] {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
 
-        if (Arrays.compare(B, A) < 0) {
+        if (Arrays.compare(B, A) == -1) {
             int[] tmp = A;
             A = B;
             B = tmp;
         }
 
-        if (Arrays.compare(D, C) < 0) {
+        if (Arrays.compare(D, C) == -1) {
             int[] tmp = C;
             C = D;
             D = tmp;
@@ -29,21 +29,17 @@ public class Main {
         int AB = ccw(A, B, C) * ccw(A, B, D);
         int CD = ccw(C, D, A) * ccw(C, D, B);
 
-        if (AB <= 0 && CD <= 0) {
-            if (AB == 0 && CD == 0) {
-                if (!(Arrays.compare(B, C) == -1 || Arrays.compare(D, A) == -1)) {
-                    System.out.println(1);
-                } else{
-                    System.out.println(0);
-                }
-            }
-            else {
+        if (AB == 0 && CD == 0) {
+            if (!(Arrays.compare(B, C) == -1 || Arrays.compare(D, A) == -1)) {
                 System.out.println(1);
+            } else{
+                System.out.println(0);
             }
+        }else if (AB <= 0 && CD <= 0) {
+            System.out.println(1);
         } else {
             System.out.println(0);
         }
-
     }
 
     static int ccw(int[] a, int[] b, int[] c) {

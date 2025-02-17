@@ -64,7 +64,9 @@ public class Main {
 
         // 현재 단계의 게임판 복사
         for (int i = 0 ; i < N ; i++) {
-            nGraph[i] = Arrays.copyOf(graph[i], N);
+            for (int j = 0; j < N; j++) {
+                nGraph[i][j] = graph[i][j];
+            }
         }
 
         int er, ec, rSep, cSep;

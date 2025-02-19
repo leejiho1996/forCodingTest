@@ -11,7 +11,7 @@ def find(n):
 n, m, k = map(int,input().split())
 cards = list(map(int,input().split()))
 putOut = list(map(int,input().split()))
-parent = [i for i in range(n+1)]
+parent = [i for i in range(n)]
 
 cards.sort()
 for i in range(k):

@@ -49,10 +49,6 @@ public class Main {
                 int[] C = new int[] {line2[0], line2[1]};
                 int[] D = new int[] {line2[2], line2[3]};
 
-                if (Arrays.compare(D, A) == -1) {
-                    continue;
-                }
-
                 if (isCross(A, B, C, D)) {
                     grouping(i, j);
                 }

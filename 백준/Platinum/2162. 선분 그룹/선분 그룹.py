@@ -42,17 +42,18 @@ for i in range(n):
     lines.append(list(map(int,input().split())))
 
 for i in range(n):
+    x1, y1, x2, y2 = lines[i]
+    A = [x1, y1]
+    B = [x2, y2]
+
+    if B < A:
+        A, B = B, A
     for j in range(i+1, n):
-        x1, y1, x2, y2 = lines[i]
-        A = [x1, y1]
-        B = [x2, y2]
+        
 
         x3, y3, x4, y4 = lines[j]
         C = [x3, y3]
         D = [x4, y4]
-
-        if B < A:
-            A, B = B, A
 
         if D < C:
             C, D = D, C
@@ -60,10 +61,9 @@ for i in range(n):
         AB = ccw(A, B, C) * ccw(A, B, D)
         CD = ccw(C, D, A) * ccw(C, D, B)
     
-        if AB == 0 and CD == 0:
+        if AB == 0 and CD == 0: # 같은 직선상에 있는 경우
             if not(B < C or D < A):
                 isGroup(i, j)
-              
         elif AB <= 0 and CD <= 0:            
             isGroup(i, j)
 

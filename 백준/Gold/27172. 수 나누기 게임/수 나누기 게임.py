@@ -11,13 +11,13 @@ present = [0] * (maxNum+1)
 for i in range(n):
     present[nums[i]] = 1
 
-for i in range(1, maxNum+1):
-    for j in range(i*2, maxNum+1, i):
-        if present[i]:
-            score[j] -= 1
+for i in range(n):
+    num = nums[i]
+    for j in range(num*2, maxNum+1, num):
+        score[j] -= 1
 
         if present[j]:
-            score[i] += 1
+            score[num] += 1
 
 for i in range(n):
     print(score[nums[i]], end = " ")

@@ -6,10 +6,10 @@ n = int(input())
 nums = list(map(int,input().split()))
 maxNum = max(nums)
 score = [0] * (maxNum+1)
-present = [0] * (maxNum+1)
+present = [False] * (maxNum+1)
 
 for i in range(n):
-    present[nums[i]] = 1
+    present[nums[i]] = True
 
 for i in range(n):
     num = nums[i]

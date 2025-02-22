@@ -24,12 +24,7 @@ public class Main {
         }
         
         dp = new int[length + 1][5][5];
-        for (int[][] layer : dp) {
-            for (int[] row : layer) {
-                Arrays.fill(row, -1);
-            }
-        }
-        
+      
         System.out.println(dfs(0, 0, 0));
     }
     
@@ -42,7 +37,7 @@ public class Main {
     static int dfs(int cnt, int left, int right) {
         if (cnt == length) return 0;
         
-        if (dp[cnt][left][right] != -1) return dp[cnt][left][right];
+        if (dp[cnt][left][right] != 0) return dp[cnt][left][right];
         
         int cur = commands[cnt];
         

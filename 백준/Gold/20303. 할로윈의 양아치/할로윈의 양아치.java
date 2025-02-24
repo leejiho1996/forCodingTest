@@ -52,17 +52,17 @@ public class Main {
             }
         }
 
-        int[] dp = new int[K + 1];
+        int[] dp = new int[K];
 
         for (int i = 0; i < validGroupCnt.size(); i++) {
             int weight = validGroupCnt.get(i);
             int value = validCandies.get(i);
 
-            for (int j = K; j > weight; j--) {
+            for (int j = K-1; j >= weight; j--) {
                 dp[j] = Math.max(dp[j], dp[j - weight] + value);
             }
         }
-        System.out.println(dp[K]);
+        System.out.println(dp[K-1]);
 
     }
 

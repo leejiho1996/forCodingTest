@@ -33,4 +33,4 @@ for i in range(len(groupCnt)):
     for j in range(K, groupCnt[i], -1):
         dp[j] = max(dp[j], dp[j-groupCnt[i]] + candies[i])
 
-print(max(dp))
+print(dp[K])

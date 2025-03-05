@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
 
         int n = Integer.parseInt(br.readLine());
         ArrayList<int[]> links = new ArrayList<>();
@@ -62,11 +63,13 @@ public class Main {
             }
         }
 
-        System.out.println(n - lcs.size());
+        sb.append(n - lcs.size()).append("\n");
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
-                System.out.println(links.get(i)[0]);
+                sb.append(links.get(i)[0]).append("\n");
             }
         }
+
+        System.out.println(sb);
     }
 }

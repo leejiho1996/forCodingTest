@@ -42,7 +42,7 @@ public class Main {
         boolean check = false;
 
         for (int i = 0; i < iterCnt; i++) {
-            int dist = (sr+i) + Math.abs(N-1 - (sc-i));
+            int dist = (sr+i) + (N-1 - (sc-i));
 
             if (graph[sr+i][sc-i] == 0 || visited[dist] == 1) {
                 continue;

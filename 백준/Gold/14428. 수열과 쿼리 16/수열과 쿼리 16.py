@@ -72,7 +72,7 @@ seq = list(map(int,input().split())) + [0]
 seq[-1] = 1_000_000_001 
 M = int(input())
 segTree = [0] * (N * 4 - 4)
-makeTree(0, len(seq)-2, 0) # 세그먼트 트리를 만든다
+makeTree(0, N-1, 0) # 세그먼트 트리를 만든다
 
 for i in range(M):
     cmd, a, b = map(int,input().split())

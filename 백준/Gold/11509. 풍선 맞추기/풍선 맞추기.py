@@ -4,7 +4,7 @@ input = sys.stdin.readline
 
 N = int(input())
 balloons = list(map(int,input().split()))
-exists = [0] * 10000001
+exists = [0] * 1000002
 cnt = 0
 
 for i in balloons:

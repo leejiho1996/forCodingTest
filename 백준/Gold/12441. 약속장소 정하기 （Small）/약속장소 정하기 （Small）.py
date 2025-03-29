@@ -36,8 +36,9 @@ for i in range(T):
         que = []
         hq.heappush(que, (0, start[j]))
         cur_speed = speed[j]
+        visits = 0
         
-        while que:
+        while que and visits < N:
             dist, city = hq.heappop(que)
             
             if visited[city] & (1 << j):
@@ -45,6 +46,7 @@ for i in range(T):
             else:
                 visited[city] |= (1 << j)
                 total[city] = max(total[city], dist)
+                visits += 1
 
             for n_city, n_dist in graph[city]:
 

@@ -15,7 +15,7 @@ public class Main {
         if (N > nums.size()) {
             System.out.println(-1);
         } else {
-            nums.sort(Comparator.naturalOrder());
+            nums.sort((a, b) -> Long.compare(a, b));
             System.out.println(nums.get(N-1));
         }
     }

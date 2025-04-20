@@ -3,29 +3,29 @@ import sys
 input = sys.stdin.readline
 
 T = int(input())
-dic1 = {}
-dic2 = {}
-cur = (1, 1)
-cnt = 1
-limit = 1
+head = [1,1]
+start = [0] * 10001
+dic = {}
+s = 1
+e = 1
+add = 1
 
-for i in range(1, 50001):
-    dic1[cnt] = cur
-    dic2[cur] = cnt
+for i in range(1, 10001):
+    start[i] = s
+    dic[head[-1]] = i
+    head.append(head[-1] + i)
 
-    if cur[1] == 1:
-        limit += 1
-        cur = (1, limit)
-    else:
-        cur = (cur[0]+1, cur[1]-1)
-
-    cnt += 1
-    
+    if i == e:
+        s += add
+        add += 1
+        e += add
+        
 for i in range(T):
     a, b = map(int,input().split())
-    p1 = dic1[a]
-    p2 = dic1[b]
 
-    p = (p1[0]+p2[0], p1[1]+p2[1])
-    print(dic2[p])
-    
+    ax = 1 + a - start[a]
+    bx = 1 + b - start[b]
+    ay = dic[start[a]] - (ax-1)
+    by = dic[start[b]] - (bx-1)
+
+    print(head[ax+bx+ay+by-1] + ax+bx-1)

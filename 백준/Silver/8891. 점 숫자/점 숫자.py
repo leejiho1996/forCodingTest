@@ -9,7 +9,7 @@ cur = (1, 1)
 cnt = 1
 limit = 1
 
-for i in range(1, 100001):
+for i in range(1, 50001):
     dic1[cnt] = cur
     dic2[cur] = cnt
 

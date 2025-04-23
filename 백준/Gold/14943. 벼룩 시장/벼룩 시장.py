@@ -1,7 +1,6 @@
 # 벼룩 시장
 import sys
 input = sys.stdin.readline
-import heapq as hq
 
 N = int(input())
 nums = list(map(int,input().split()))
@@ -11,23 +10,28 @@ result = 0
 
 for i in range(N):
     if nums[i] < 0:
-        hq.heappush(minus, (i, nums[i]))
+        minus.append((i, nums[i]))
     elif nums[i] > 0:
-        hq.heappush(plus, (i, nums[i]))
+        plus.append((i, nums[i]))
 
-while minus:
-    idx, minus_num = hq.heappop(minus)
+m = 0
+p = 0
 
-    while minus_num and plus:
-        p_idx, plus_num = hq.heappop(plus)
+while m < len(minus):
+    midx, minus_num = minus[m]
 
+    while minus_num:
+        pidx, plus_num = plus[p]
+        
         if minus_num + plus_num > 0:
-            result += -minus_num * abs(idx - p_idx)
-            plus_num += minus_num
+            result += -minus_num * abs(midx - pidx)
+            plus[p] = (pidx, plus_num + minus_num)
             minus_num = 0
-            hq.heappush(plus, (p_idx, plus_num))
         else:
-            result += plus_num * abs(idx - p_idx)
+            result += plus_num * abs(midx - pidx)
             minus_num += plus_num
+            p += 1
+
+    m += 1
 
 print(result)

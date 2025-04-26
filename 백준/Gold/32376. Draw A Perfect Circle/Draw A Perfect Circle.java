@@ -8,7 +8,7 @@ public class Main {
 
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
-        ArrayList<Double> dists = new ArrayList<>();
+        double[] dists = new double[N];
         double result = 0;
 
         for (int i = 0; i < N; i++) {
@@ -16,17 +16,17 @@ public class Main {
             double x = Double.parseDouble(st.nextToken());
             double y = Double.parseDouble(st.nextToken());
             double dist = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-            dists.add(dist);
+            dists[i] = dist;
         }
 
-        dists.sort(Comparator.naturalOrder());
+        Arrays.sort(dists);
         int end = 0;
 
         for (int i = 0; i < N; i++) {
-            double min = dists.get(i);
+            double min = dists[i];
             double max = min + K;
 
-            while (end < N && dists.get(end) <= max) {
+            while (end < N && dists[end] <= max) {
                 end ++;
             }
 

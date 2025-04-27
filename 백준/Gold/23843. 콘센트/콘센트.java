@@ -9,27 +9,30 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         Integer[] devices = new Integer[N];
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        pq.offer(0);
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        stack.push(0);
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             devices[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(devices, Collections.reverseOrder());
+        Arrays.sort(devices, Collections.reverseOrder()); // 내림차순으로 정렬
         int idx = 0;
         int time = 0;
 
-        while (!pq.isEmpty()) {
-            time = pq.poll();
+        while (!stack.isEmpty()) {
+            // 가장 빨리 끝나는 기기를 큐에서 빼준다
+            time = stack.pop();
 
-            while (!pq.isEmpty() && pq.peek() == time) {
-                pq.poll();
+            // 현재시간에 끝나는 기기가 더 있다면 함께 큐에서 빼준다
+            while (!stack.isEmpty() && stack.peek() == time) {
+                stack.pop();
             }
 
-            while (pq.size() < M && idx < N) {
-                pq.offer(devices[idx]+time);
+            // 충전시간이 긴 순서대로 큐에 넣어주며, 끝나는 시간은 현재시간 + 충전시간이다
+            while (stack.size() < M && idx < N) {
+                stack.push(devices[idx]+time);
                 idx++;
             }
         }

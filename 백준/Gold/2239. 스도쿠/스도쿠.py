@@ -29,7 +29,7 @@ def backtrack(idx):
         backtrack(idx + 1)
     else:
         for i in range(1, 10):
-            if not row[x][i] and not col[y][i] and  not three[three_idx][i]:
+            if not row[x][i] and not col[y][i] and not three[three_idx][i]:
                 col[y][i] = 1
                 row[x][i] = 1
                 three[three_idx][i] = 1

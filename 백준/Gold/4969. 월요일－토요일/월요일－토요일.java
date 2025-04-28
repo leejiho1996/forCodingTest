@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+        StringBuilder sb;
         int[] prime = new int[300001];
         prime[1] = 1;
 
@@ -44,12 +44,14 @@ public class Main {
             }
 
             pf.sort(Comparator.naturalOrder());
+            sb = new StringBuilder();
+            sb.append(N).append(": ");
 
-            System.out.print(N + ": ");
             for (int i : pf) {
-                System.out.print(i + " ");
+                sb.append(i).append(" ");
             }
-            System.out.println();
+
+            System.out.println(sb);
         }
     }
 }

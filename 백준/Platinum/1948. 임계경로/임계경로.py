@@ -30,7 +30,7 @@ while stack:
         if indegree[t] == 0:
             stack.append(t)
 
-stack = [end]
+stack.append(end)
 while stack:
     cur = stack.pop()
     

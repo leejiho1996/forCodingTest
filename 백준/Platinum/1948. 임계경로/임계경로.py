@@ -1,46 +1,44 @@
 # 임계경로
 import sys
 input = sys.stdin.readline
-import heapq
-from collections import deque
 
 n = int(input())
 m = int(input())
 
-graph = [[] for _ in range(n+1)]
-r_graph = [[] for _ in range(n+1)]  
 dist = [0] * (n+1)
+graph = [[] for _ in range(n+1)]
+r_graph = [[] for _ in range(n+1)]
+indegree = [0] * (n+1)
+visited = [0] * m
 
-for _ in range(m):
-    u, v, w = map(int, input().split())
-    graph[u].append((v, w))
-    r_graph[v].append((u, w))  
+for i in range(m):
+    s, t, c = map(int,input().split())
+    graph[s].append((t, c, i))
+    r_graph[t].append((s, c, i))
+    indegree[t] += 1
+    
+start, end = map(int,input().split())
 
-start, end = map(int, input().split())
+stack = [start]
+while stack:
+    cur = stack.pop()
 
-hq = []
-heapq.heappush(hq, (-0, start))  
-while hq:
-    cost, now = heapq.heappop(hq)
-    cost = -cost
-    if dist[now] > cost:
-        continue
-    for to, weight in graph[now]:
-        if dist[to] < dist[now] + weight:
-            dist[to] = dist[now] + weight
-            heapq.heappush(hq, (-(dist[to]), to))  
+    for t, c, i in graph[cur]:
+        indegree[t] -= 1
+        dist[t] = max(dist[t], dist[cur] + c)
 
-visited = [0] * (n+1)
-count = 0
-q = deque([end])
-while q:
-    cur = q.popleft()
-    for prev, weight in r_graph[cur]:
-        if dist[prev] + weight == dist[cur]:
-            count += 1
-            if not visited[prev]:
-                visited[prev] = 1
-                q.append(prev)
+        if indegree[t] == 0:
+            stack.append(t)
 
-print(dist[end]) 
-print(count)      
+stack = [end]
+while stack:
+    cur = stack.pop()
+    
+    for t, c, i in r_graph[cur]:
+        if dist[t] + c == dist[cur]:
+            if not visited[i]:
+                stack.append(t)
+                visited[i] = 1
+        
+print(dist[end])
+print(sum(visited))

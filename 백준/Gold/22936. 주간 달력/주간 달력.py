@@ -4,28 +4,29 @@ input = sys.stdin.readline
 
 N = int(input())
 M = int(input())
-plans = [0] * 50001
+plans = [0] * 50002
 end = [0] * 50001
-aggSum = [0] * 50001
 result = 0
 
 for i in range(M):
     s, e = map(int,input().split())
     end[e] += 1
+    plans[s] += 1
+    plans[e+1] -= 1
     
-    for j in range(s, e+1):
-        plans[j] += 1
+for i in range(1, 50001):
+    plans[i] = plans[i-1] + plans[i]
 
 for i in range(1, 50001):
-    aggSum[i] = aggSum[i-1] + plans[i]
+    plans[i] = plans[i-1] + plans[i]
 
 limit = N * 7 
 maxx = 0
 maxIdx = 0
 
 for i in range(1, 50001-limit+1):
-    if aggSum[i+limit-1] - aggSum[i-1] > maxx:
-        maxx = aggSum[i+limit-1] - aggSum[i-1]
+    if plans[i+limit-1] - plans[i-1] > maxx:
+        maxx = plans[i+limit-1] - plans[i-1]
         maxIdx = i
 
 cnt = 0
@@ -33,7 +34,7 @@ for i in range(maxIdx, maxIdx+limit):
     cnt += 1
 
     if cnt % 7 == 0:
-        result += plans[i] - end[i]
+        result += (plans[i]-plans[i-1]) - end[i]
     
     result += end[i]
 

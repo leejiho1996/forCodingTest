@@ -13,12 +13,10 @@ for i in range(M):
     end[e] += 1
     plans[s] += 1
     plans[e+1] -= 1
-    
-for i in range(1, 50001):
-    plans[i] = plans[i-1] + plans[i]
 
-for i in range(1, 50001):
-    plans[i] = plans[i-1] + plans[i]
+for i in range(2):
+    for j in range(1, 50001):
+        plans[j] = plans[j-1] + plans[j]
 
 limit = N * 7 
 maxx = 0

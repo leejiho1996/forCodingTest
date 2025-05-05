@@ -18,11 +18,11 @@ cmd = []
 
 for i in range(N-1):
     a, b = map(int,input().split())
-    cmd.append((a, b))
+    cmd.append(a)
     graph[a].append(b)
     graph[b].append(a)
 
 dfs(1, 0, -1)
 
-for a, b in cmd:
+for a in cmd:
     print(direc[a])

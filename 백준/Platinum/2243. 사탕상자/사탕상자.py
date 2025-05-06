@@ -4,6 +4,8 @@ input = sys.stdin.readline
 
 def query(left, right, rank, Node):
 
+    segTree[Node] -= 1
+    
     if left == right:
           return left
         
@@ -45,5 +47,4 @@ for i in range(n):
         rank = cmd[1]
         result = query(0, 1000000, rank, 0)
         print(result)
-        change(0, 1000000, result, -1, 0)
 

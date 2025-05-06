@@ -3,7 +3,7 @@ import sys
 input = sys.stdin.readline
 
 def query(left, right, rank, Node):
-
+    # 해당 노드의 값 -1
     segTree[Node] -= 1
     
     if left == right:
@@ -11,30 +11,27 @@ def query(left, right, rank, Node):
         
     mid = (left + right) // 2
 
+    # 왼쪽 자식노드가 찾는 순위보다 같거나 크다면 해당 부분을 탐색
     if segTree[Node*2+1] >= rank:
         return query(left, mid, rank, Node*2+1)
-    else:
+    # 왼쪽 자식 노드가 찾는 순위보다 작다면 rank를 해당 값만 큼 빼주고 오른쪽 탐색
+    else: 
         return query(mid+1, right, rank-segTree[Node*2+1], Node*2+2)
 
 def change(left, right, idx, amount, Node):
 
-    # 바꾸고자하는 idx 범위를 벗어난 경우
-    if idx < left or idx > right:
-        return segTree[Node]
+    segTree[Node] += amount
 
     if left == right:
-        segTree[Node] += amount
         return segTree[Node]
 
     mid = (left + right) // 2
 
-    leftChange = change(left, mid, idx, amount, Node*2+1)
-    rightChange = change(mid+1, right, idx, amount, Node*2+2)
-    # 세그먼트 트리 갱신
-    segTree[Node] = leftChange + rightChange
-
-    return segTree[Node]
-    
+    if mid >= idx:
+        return change(left, mid, idx, amount, Node*2+1)
+    else:
+        return change(mid+1, right, idx, amount, Node*2+2)
+        
 n = int(input())
 segTree = [0] * (1000001*4)
 

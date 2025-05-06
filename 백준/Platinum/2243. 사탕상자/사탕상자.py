@@ -2,21 +2,17 @@
 import sys
 input = sys.stdin.readline
 
-def query(left, right, leftNode, rightNode, Node):
-    # 범위를 벗어난 경우
-    if leftNode > right or rightNode < left:
-        return 0
+def query(left, right, rank, Node):
 
-    # 세그먼트 트리 구간이 모두 들어오는 경우
-    if left <= leftNode and rightNode <= right:
-        return segTree[Node]    
-    
-    mid = (leftNode + rightNode) // 2
+    if left == right:
+          return left
+        
+    mid = (left + right) // 2
 
-    leftQuery = query(left, right, leftNode, mid, Node*2+1)
-    rightQuery = query(left, right, mid+1, rightNode, Node*2+2)
-
-    return leftQuery + rightQuery
+    if segTree[Node*2+1] >= rank:
+        return query(left, mid, rank, Node*2+1)
+    else:
+        return query(mid+1, right, rank-segTree[Node*2+1], Node*2+2)
 
 def change(left, right, idx, amount, Node):
 
@@ -38,32 +34,16 @@ def change(left, right, idx, amount, Node):
     return segTree[Node]
     
 n = int(input())
-candies = [0] * (1000001)
 segTree = [0] * (1000001*4)
 
 for i in range(n):
     cmd = list(map(int,input().split()))
 
     if cmd[0] == 2:
-        candies[cmd[1]] += cmd[2]
         change(0, 1000000, cmd[1], cmd[2], 0)
     else:
         rank = cmd[1]
-        start = 0
-        end = 1000000
-        
-        while start <= end:
-
-            mid = (start + end) // 2
-
-            result = query(0, mid, 0, 1000000, 0)
-
-            if result >= rank:
-                end = mid - 1
-            else:
-                start = mid + 1
-
-        print(end+1)
-        candies[end+1] -= 1
-        change(0, 1000000, end+1, -1, 0)
+        result = query(0, 1000000, rank, 0)
+        print(result)
+        change(0, 1000000, result, -1, 0)
 

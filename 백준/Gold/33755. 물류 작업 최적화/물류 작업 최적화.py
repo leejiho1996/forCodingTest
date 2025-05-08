@@ -1,36 +1,18 @@
-# 물류 작업 최적화
 import sys
 input = sys.stdin.readline
 
 N = int(input())
-items = list(map(int,input().split()))
+A = list(map(int, input().split()))
 
-aggSum = [0] * N
-aggSum[0] = items[0]
-
-plus = [0] * N
-minus = [-1] * N
-
-last = -1
+L = [0]*N
+L[0] = A[0]
 for i in range(1, N):
-    aggSum[i] = items[i] + aggSum[i-1]    
-    minus[i] = last
+    L[i] = max(A[i], L[i-1] + A[i])
+    
+R = [0]*N
+R[N-1] = A[N-1]
+for i in range(N-2, -1, -1):
+    R[i] = max(A[i], R[i+1] + A[i])
 
-    if aggSum[i] < 0:    
-        last = i
-
-maxx = -float('inf')
-maxIdx = -1
-for i in range(N-1, -1, -1):
-    if aggSum[i] > maxx:
-        maxx = aggSum[i]
-        maxIdx = i
-        plus[i] = maxIdx
-    else:
-        plus[i] = maxIdx
-
-for i in range(N):
-    if minus[i] == -1:
-        print(aggSum[plus[i]], end = " ")
-    else:
-        print(aggSum[plus[i]] - aggSum[minus[i]], end = " ")
+ans = [L[i] + R[i] - A[i] for i in range(N)]
+print(" ".join(map(str, ans)))

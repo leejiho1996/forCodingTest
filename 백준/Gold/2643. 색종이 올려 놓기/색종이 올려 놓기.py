@@ -41,7 +41,6 @@ for i in range(N):
     dfs(i)
     visited[i] = 0
 
-for i in range(N):
-    result = max(result, dp[i])
-
-print(result)
+print(max(dp))
+            
+            

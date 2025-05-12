@@ -8,7 +8,7 @@ def dfs(n, total, cnt):
     if cnt == N:
         result = min(result, total + graph[n][0])
     
-    for i in range(N+1):
+    for i in range(1, N+1):
         if visited[i]:
             continue
 

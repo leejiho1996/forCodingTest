@@ -11,13 +11,13 @@ k = int(input())
 x, d = dic[k]
 
 if d % x == 0:
-    left = max(0, l-d-1)
-    right = max(0, r-d)
+    left = max(1, l-d-1)
+    right = max(1, r-d)
     print(right//x - left//x)
 else:
-    left1 = max(0, l-d-1)
-    right1 = max(0, r-d)
-    left2 = max(0, l-2*d-1)
-    right2 = max(0, r-2*d)
+    left1 = max(1, l-d-1)
+    right1 = max(1, r-d)
+    left2 = max(1, l-2*d-1)
+    right2 = max(1, r-2*d)
 
     print((right1//x-left1//x) + (right2//x-left2//x))

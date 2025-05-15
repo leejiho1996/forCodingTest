@@ -13,18 +13,21 @@ def dijkstra():
 
         if dist[cur] < cost:
             continue
+
+        # 이동한 루트 기록
+        route[prev][cur] = 1
         
         if dist[cur] == float('inf'):
+            # 처음 방문하는 거라면 거리 갱신후 다음 루트 탐색
             dist[cur] = cost
-            route[prev][cur] = 1
-        else:
-            route[prev][cur] = 1
+        else: # 아니라면 또 탐색할 필요없으니 continue    
             continue
 
         for n, nc in graph[cur]:
-
+            # 거리가 갱신되지 않는다면 패스
             if dist[n] < nc + cost:
                 continue
+            # 최단거리에 포함되는 경로면 패스
             elif banned[cur][n]:
                 continue
             else:
@@ -48,14 +51,12 @@ while True:
     dijkstra()
     short = dist[D]
 
+    # D에서 부터 거꾸로 탐색하며 최단거리에 포함되는 도로 체
     deq = deque([D])
     while deq:
         cur = deq.popleft()
         
         for i in range(N):
-            if i == cur:
-                continue
-            
             if route[i][cur] and banned[i][cur] == 0:
                 banned[i][cur] = 1
                 deq.append(i)

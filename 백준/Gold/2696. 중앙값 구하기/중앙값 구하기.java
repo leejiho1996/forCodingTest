@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -14,12 +15,11 @@ public class Main {
             int rep = M / 10;
             int cnt = 0;
             int mid = 0;
-            int outCnt = 1;
 
-            PriorityQueue<Integer> maxQue = new PriorityQueue<>(Comparator.naturalOrder());
-            PriorityQueue<Integer> minQue = new PriorityQueue<>(Comparator.naturalOrder());
+            PriorityQueue<Integer> maxQue = new PriorityQueue<>(); // 현재 중앙값 보다 큰 값을 저장
+            PriorityQueue<Integer> minQue = new PriorityQueue<>(); // 현재 중앙값 보다 작은 값을 저장
 
-            sb.append(M % 2 == 0 ? M / 2 : M / 2 + 1).append("\n");
+            sb.append(M % 2 == 0 ? M / 2 : M / 2 + 1).append("\n"); // 출력해야하는 숫자의 갯수
 
             while (rep >= 0) { // 10개씩 끊어서 입력
                 st = new StringTokenizer(br.readLine());
@@ -42,30 +42,30 @@ public class Main {
 
                     // 홀수번째 마다 중앙값 구한다 (cnt가 0부터 시작하므로 cnt가 짝수일 때 홀수번)
                     if (cnt % 2 == 0) {
-                        if (maxQue.size() > minQue.size()) {
+                        if (maxQue.size() > minQue.size()) { // max큐가 더 크다면 max큐의 첫번째 값이 중앙값
                             minQue.offer(-mid);
-                            mid = maxQue.poll();
-                            sb.append(mid).append(" ");
-                        } else if (minQue.size() > maxQue.size()) {
+                            mid = maxQue.poll();   
+                        } else if (minQue.size() > maxQue.size()) { // min큐가 더 크다면 min큐의 첫번째값이 중앙값
                             maxQue.offer(mid);
-                            mid = -minQue.poll();
-                            sb.append(mid).append(" ");
-                        } else {
-                            sb.append(mid).append(" ");
+                            mid = -minQue.poll(); 
                         }
-                        outCnt++;
+                        
+                        sb.append(mid).append(" ");
 
-                        if (outCnt % 10 == 0 && rep > 0) {
+                        // 10개 씩 끊어서 출력하기 위해 10번째 문자마다 개행문자 더해준다
+                        // 단 마지막줄이 10개로 끝나는 경우를 방지하기 위해 rep > 0인 경우만
+                        if ((cnt+2) % 20 == 0 && rep > 0) {
                             sb.append("\n");
                         }
                     }
-
                     cnt++;
                 }
                 rep--;
             }
+            // 테스트 케이스가 끝나면 개행 문자 더해준다
             sb.append("\n");
         }
+        // 정답 출력
         System.out.println(sb);
     }
 }

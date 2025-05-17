@@ -30,10 +30,6 @@ public class Main {
             int pa = find(a);
             int pb = find(b);
 
-            if (pa == pb) {
-                continue;
-            }
-
             long lcmA = (p * amount[a]) / GCD(p, amount[a]); // a와 현재 a값의 최소공배수
             long multiA = lcmA / amount[a];
 

@@ -9,8 +9,6 @@ def backtrack(r, c, cnt, move):
         result = min(result, move)
         return
 
-    direc = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-
     for dx, dy in direc:
         
         nr, nc = r, c
@@ -20,14 +18,17 @@ def backtrack(r, c, cnt, move):
             nr += dx
             nc += dy
 
+            # 주어진 범위를 넘어가거나 방문할 수 없는 경우 break
             if (nr < 0 or nc < 0 or nr >= N or nc >= M):
                 break
             elif visited[nr][nc] != 0:
                 break
 
+            # 구슬이 이동한 경로를 스택에 다 담아준다
             stack.append((nr, nc))
             visited[nr][nc] = 1
 
+        # 스택에 이동 경로가 있다면 백트래킹 수행하고 visited 다시 0으로 변
         if stack:
             backtrack(nr-dx, nc-dy, cnt+len(stack), move+1)
 
@@ -36,6 +37,7 @@ def backtrack(r, c, cnt, move):
                 visited[rr][rc] = 0
 
 Case = 1
+direc = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
 try :
     while True:

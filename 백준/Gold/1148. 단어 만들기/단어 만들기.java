@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        byte[][] graph = new byte[200000][26];
+        int[][] graph = new int[200000][26];
         int idx = 0;
 
         while (true) {
@@ -31,7 +31,7 @@ public class Main {
             }
 
             // 현재 퍼즐판의 문자별 카운트
-            byte[] charCnt = new byte[26];
+            int[] charCnt = new int[26];
             for (char c : cur.toCharArray()) {
                 charCnt[c - 'A']++;
             }

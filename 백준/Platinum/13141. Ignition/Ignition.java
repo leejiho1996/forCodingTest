@@ -6,7 +6,7 @@ public class Main {
     static int M;
     static int[] nodes;
     static Edge[] edges;
-    static int[] distances;
+    static int[][] distances;
     static ArrayList<ArrayList<int[]>> graph;
 
     public static void main(String[] args) throws IOException {
@@ -18,10 +18,13 @@ public class Main {
         nodes = new int[N+1];
         edges = new Edge[M];
         graph = new ArrayList<>();
+        distances = new int[N+1][N+1];
         double result = 20000001;
 
         for (int i = 0; i < N+1; i++) {
             graph.add(new ArrayList<>());
+            Arrays.fill(distances[i], 20000001);
+            distances[i][i] = 0;
         }
 
         for (int i = 0; i < M; i++) {
@@ -30,20 +33,20 @@ public class Main {
             int t = Integer.parseInt(st.nextToken());
             int l = Integer.parseInt(st.nextToken());
 
-            graph.get(s).add(new int[] {t, l});
-            graph.get(t).add(new int[] {s, l});
+            distances[s][t] = Math.min(distances[s][t], l);
+            distances[t][s] = Math.min(distances[t][s], l);
             edges[i] = new Edge(s, t, l);
         }
 
+        bellmanFord();
+
         for (int i = 1; i < N+1; i++) {
-            distances = new int[N+1];
-            Arrays.fill(distances, Integer.MAX_VALUE);
-            dijkstra(i);
+
             double tmp = 0;
 
             for (Edge e : edges) {
-                double cost = Math.min(distances[e.start], distances[e.end]);
-                int abs = Math.abs(distances[e.start] - distances[e.end]);
+                double cost = Math.min(distances[i][e.start], distances[i][e.end]);
+                int abs = Math.abs(distances[i][e.start] - distances[i][e.end]);
 
                 int rest = e.length - abs;
                 cost += abs;
@@ -55,27 +58,14 @@ public class Main {
 
         System.out.println(result);
     }
-
-    static void dijkstra(int n) {
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        pq.offer(new int[] {0, n});
-
-        while (!pq.isEmpty()) {
-            int[] tmp = pq.poll();
-            int cost = tmp[0];
-            int cur = tmp[1];
-
-            if (distances[cur] < cost) {
-                continue;
-            } else {
-                distances[cur] = cost;
-            }
-
-            for (int[] next : graph.get(cur)) {
-                // 거리가 새롭게 갱신 가능한 경우 pq에 삽입
-                if (distances[next[0]] > cost +  next[1]) {
-                    pq.offer(new int[] {cost + next[1], next[0]});
-                    distances[next[0]] = cost + next[1];
+    
+    static void bellmanFord() {
+        for (int k = 1; k < N+1; k++) {
+            for (int i = 1; i < N+1; i++) {
+                for (int j = 1; j < N+1; j++) {
+                    if (distances[i][j] > distances[i][k] + distances[k][j]) {
+                        distances[i][j] = distances[i][k] + distances[k][j];
+                    }
                 }
             }
         }

@@ -42,7 +42,7 @@ result = -float('inf')
 for i in range(N-1, -1, -1):
     dp[i] = bridge[i]
 
-    dp[i] = max(dp[i], dp[i] + find(0, N, i+1, min(N-1, i+D), 0))
-    update(0, N, i, dp[i], 0)
+    dp[i] = max(dp[i], dp[i] + find(0, N-1, i+1, min(N-1, i+D), 0))
+    update(0, N-1, i, dp[i], 0)
 
 print(max(dp))

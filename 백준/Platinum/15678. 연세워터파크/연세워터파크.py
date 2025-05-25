@@ -1,48 +1,35 @@
-# 연세워터파크
+# 연세워터파크 (deque)
 import sys
-input = sys.stdin.readline
+input=sys.stdin.readline
+from collections import deque
 
-def find(left, right, leftNode, rightNode, node):
-    if left > rightNode or right < leftNode:
-        return -float('inf')
-
-    if left >= leftNode and rightNode >= right:
-        return segTree[node]
-
-    mid = (left + right) // 2
-
-    lf = find(left, mid, leftNode, rightNode, node*2+1)
-    rf = find(mid+1, right, leftNode, rightNode, node*2+2)
-
-    return max(lf, rf)
-
-def update(left, right, idx, value, node):
-    if left > idx or right < idx:
-        return segTree[node]
-    
-    if left == right:
-        segTree[node] = value
-        return segTree[node]
-
-    mid = (left + right) // 2
-
-    lu = update(left, mid, idx, value, node*2+1)
-    ru = update(mid+1, right, idx, value, node*2+2)
-
-    segTree[node] = max(lu, ru)
-
-    return segTree[node]
-        
 N, D = map(int,input().split())
-bridge = list(map(int,input().split()))
-dp = [-float('inf')] * N
-segTree = [-float('inf')] * (N*4)
-result = -float('inf')
 
-for i in range(N-1, -1, -1):
-    dp[i] = bridge[i]
+a = list(map(int,input().split()))
+a = [0] + a # 맨 앞에 0을 넣어 음수로 시작하는 경우 처리
 
-    dp[i] = max(dp[i], dp[i] + find(0, N-1, i+1, min(N-1, i+D), 0))
-    update(0, N-1, i, dp[i], 0)
+que=deque()
+dp=[0]*(N+1)
+que.append(0)
+
+for i in range(1, N+1):
+    # D보다 먼 값은 제거
+    if que and que[0] < i-D:
+        que.popleft()
+
+    # que의 맨 앞의 값은 D범위 안의 최대값
+    if que:
+        dp[i] = max(dp[que[0]]+a[i],a[i])
+    else:
+        dp[i]=a[i]
+
+    # dp[i] 값보다 작은 값들을 제거
+    while que and dp[que[-1]] <= dp[i]:
+        que.pop()
+
+    # 현재 인덱스를 que에 넣어준다
+    que.append(i)
+
+dp.pop(0)
 
 print(max(dp))

@@ -1,41 +1,34 @@
-# Parcel
+# Parcel (중간부터 나눠서)
 import sys
 input = sys.stdin.readline
 
-W, N = map(int,input().split())
-A = list(map(int,input().split()))
+def solution():
+    W, N = map(int,input().split())
+    A = list(map(int,input().split()))
 
-two_sum = [(-1,-1) for _ in range(W+1)]
-num_set = [set()] * N
+    two_sum = [False] * W
 
-for i in range(N):
-    for j in range(i+1, N):
-        num = A[i] + A[j]
+    A.sort()
 
-        if num >= W+1:
-            continue
+    for i in range(2, N-1):
+        
+        for j in range(i-1):
 
-        if two_sum[num] == (-1, -1):
-            two_sum[num] = (i, j)
+            if A[i-1] + A[j] >= W:
+                break
             
+            two_sum[A[i-1] + A[j]] = True
 
-for i in range(N):
-    for j in range(i+1, N):
-        find = W - (A[i] + A[j])
+        for j in range(i+1, N):
+            num = W - (A[i] + A[j])
 
-        if find <= 0 :
-            continue
-        
-        if two_sum[find] == (-1, -1):
-            continue
+            if num <= 0 or num >= W:
+                break
 
-        x, y = two_sum[find]
-        
-        if i != x and i != y and j != x and j != y:
-            print("YES")
-            exit()
+            if two_sum[num]:
+                print("YES")
+                exit()
 
-print("NO")
+    print("NO")
 
-
-
+solution()

@@ -36,8 +36,6 @@ for i in range(N):
 
         if flagpoles[start-1] <= target:
             result = max(result, width * flagpoles[start-1] / 2)
-        else:
-            break
-            
+           
 print(result)
     

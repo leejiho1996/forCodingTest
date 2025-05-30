@@ -25,7 +25,6 @@ public class Main {
             graph[A][B] = T;
         }
 
-        // 친구들의 시작노드 입력
         int K = Integer.parseInt(br.readLine());
         int[] friends = new int[K];
         st = new StringTokenizer(br.readLine());
@@ -34,7 +33,6 @@ public class Main {
             friends[i] = Integer.parseInt(st.nextToken());
         }
 
-        // 플로이드 워셜로 각 노드별 최단거리 계산
         for (int k = 1; k < N+1; k++) {
             for (int i = 1; i < N+1; i++) {
                 for (int j = 1; j < N+1; j++) {

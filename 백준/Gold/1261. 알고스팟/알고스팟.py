@@ -21,10 +21,7 @@ while que:
         print(cost)
         break
     
-    if visited[r][c] <= cost:
-        continue
-    else:
-        visited[r][c] = cost
+    visited[r][c] = cost
 
     for dx, dy in direc:
         nr, nc = r + dx, c + dy
@@ -34,6 +31,7 @@ while que:
         elif visited[nr][nc] <= cost + int(graph[nr][nc]):
             continue
 
+        visited[nr][nc] = cost + int(graph[nr][nc])
         hq.heappush(que, (cost+int(graph[nr][nc]), nr, nc))
     
 

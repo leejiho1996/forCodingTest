@@ -7,16 +7,16 @@ def solve(left, right, turn):
     if left > right:
         return 0
 
-    if turn == 1:
-       return min(solve(left+1, right, 1-turn),
-                  solve(left, right-1, 1-turn))
-    
     if dp[left][right] != -1:
         return dp[left][right]
     else:
         dp[left][right] = 0
 
-    dp[left][right] = max(solve(left+1, right, 1-turn) + cards[left],
+    if turn == 1:
+       dp[left][right] =  min(solve(left+1, right, 1-turn),
+                              solve(left, right-1, 1-turn))
+    else:   
+        dp[left][right] = max(solve(left+1, right, 1-turn) + cards[left],
                           solve(left, right-1, 1-turn) + cards[right])
 
     return dp[left][right]

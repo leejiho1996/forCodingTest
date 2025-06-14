@@ -12,7 +12,7 @@ for i in range(N):
 
     while stack and stack[-1] < nums[i]:
 
-        idx = stack.pop()
+        stack.pop()
         result += 1
 
         if stack:

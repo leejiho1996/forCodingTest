@@ -2,57 +2,38 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    
     public static void main(String[] args) throws IOException {
-        // 입력
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        StringBuilder result = new StringBuilder();
+
         int N = Integer.parseInt(br.readLine());
-        int[] aggSum = new int[N];
-        int[] plus = new int[N];
-        int[] minus = new int[N];
-        int[] result = new int[N];
+        int[] nums = new int[N];
 
-        // aggSum 초기화
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            aggSum[i] = Integer.parseInt(st.nextToken());
+            nums[i] = Integer.parseInt(st.nextToken());
         }
 
-        // 누적합 + minus 배열 처리
-        minus[0] = -1;
-        int last = -1;
+        int[] left = new int[N];
+        left[0] = nums[0];
+
         for (int i = 1; i < N; i++) {
-            aggSum[i] += aggSum[i - 1];
-            minus[i] = last;
-            if (aggSum[i] < 0) {
-                last = i;
-            }
+            left[i] = Math.max(nums[i], left[i-1] + nums[i]);
         }
 
-        // plus 배열 처리 (뒤에서부터 최대값 추적)
-        int maxVal = Integer.MIN_VALUE;
-        int maxIdx = -1;
-        for (int i = N - 1; i >= 0; i--) {
-            if (aggSum[i] > maxVal) {
-                maxVal = aggSum[i];
-                maxIdx = i;
-            }
-            plus[i] = maxIdx;
+        int[] right = new int[N];
+        right[N - 1] = nums[N - 1];
+
+        for (int i = N - 2; i >= 0; i--) {
+            right[i] = Math.max(nums[i], right[i+1] + nums[i]);
         }
 
-        // 결과 계산
         for (int i = 0; i < N; i++) {
-            if (minus[i] == -1) {
-                result[i] = aggSum[plus[i]];
-            } else {
-                result[i] = aggSum[plus[i]] - aggSum[minus[i]];
-            }
+            result.append(left[i] + right[i] - nums[i]).append(" ");
         }
 
-        // 출력
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        for (int i = 0; i < N; i++) {
-            bw.write(result[i] + (i == N - 1 ? "\n" : " "));
-        }
-        bw.flush();
+        System.out.println(result);
     }
 }

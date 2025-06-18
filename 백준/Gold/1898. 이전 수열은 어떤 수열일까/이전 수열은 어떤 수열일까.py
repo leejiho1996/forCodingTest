@@ -21,7 +21,7 @@ for i in range(N):
     
     m1 = idx[cur-1] # 현재 숫자보다 1작은 숫자의 인덱스
 
-    if m1 == -1 or m1 < idx[cur]:
+    if m1 < idx[cur]:
         result[i] = cur
     else:
         result[i] = cur-1

@@ -28,7 +28,7 @@ public class Main {
 
             // 현재 수보다 작은 수를 이미 사용하였거나 현재 인덱스보다 더 작다면
             // 숫자를 바꾸지 않는다
-            if (m1 == -1 || m1 < idx[cur]) {
+            if (m1 < idx[cur]) {
                 result[i] = cur;
             } else { // 그렇지 않다면 작은 수와 서로 위치를 바꿔준다
                 result[i] = cur - 1;

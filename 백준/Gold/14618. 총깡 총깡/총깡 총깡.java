@@ -6,6 +6,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
+        // 입력 시작
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         final int LIMIT = 500001;
@@ -42,7 +43,9 @@ public class Main {
             graph.get(s).add(new int[] {t, c});
             graph.get(t).add(new int[] {s, c});
         }
+        // 입력 끝
 
+        // 진서를 시작점으로 주변 도시를 우선순위 큐에 담는다
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
 
         for (int[] tmp : graph.get(J)) {
@@ -57,6 +60,7 @@ public class Main {
         int minA = LIMIT;
         int minB = LIMIT;
 
+        // 모든 도시까지의 최단거리를 다익스트라로 탐색
         while (!pq.isEmpty()) {
             int[] tmp = pq.poll();
             int cost = tmp[0];
@@ -74,6 +78,10 @@ public class Main {
                 minB = Math.min(minB, cost);
             }
 
+            if (minA != LIMIT && minB != LIMIT) {
+                break;
+            }
+
             for (int[] next : graph.get(city)) {
                 int nextCity = next[0];
                 int nextCost = next[1];
@@ -87,9 +95,10 @@ public class Main {
             }
         }
 
+        // 둘다 도달하지 못하면 -1 출력
         if (minA == LIMIT && minB == LIMIT) {
             System.out.println(-1);
-        } else if (minA <= minB) {
+        } else if (minA <= minB) { // A, B 둘다 같은 경우 A를 출력
             System.out.println("A");
             System.out.println(minA);
         } else {

@@ -3,11 +3,9 @@ import sys
 input = sys.stdin.readline
 
 minn, maxx = map(int,input().split())
-dic = {}
 result = 0
-
-for i in range(minn, maxx+1):
-    dic[i] = 0
+cnt = maxx - minn + 1
+visited = [0] * cnt
 
 cur = 2
 while cur**2 <= maxx:
@@ -15,17 +13,17 @@ while cur**2 <= maxx:
     sqr = cur**2
 
     if minn % sqr == 0:
-        start = minn
+        start = 0
     else:
-        start = sqr * (minn // sqr + 1)
+        start = sqr * (minn // sqr + 1) - minn
 
-    for i in range(start, maxx+1, sqr):
-        dic[i] = 1
+    for i in range(start, cnt, sqr):
+        visited[i] = 1
 
     cur += 1
 
-for i in range(minn, maxx+1):
-    if dic[i] == 0:
+for i in range(cnt):
+    if visited[i] == 0:
         result += 1
     
 print(result)

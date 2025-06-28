@@ -2,52 +2,41 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        ArrayList<ArrayList<Integer>> links = new ArrayList<>();
-        int[] bitCnt = new int[(1 << 20) + 1];
 
-        for (int i = 0; i < N; i++) {
-            links.add(new ArrayList<>());
+        BitSet[] links = new BitSet[N + 1];
+
+        for (int i = 1; i <= N; i++) {
+            links[i] = new BitSet(N);
             String link = br.readLine();
 
-            int start = 0;
-            int end = 20;
-
-            if (end > N) end = N;
-
-            while (start < N) {
-                links.get(i).add(Integer.parseInt(link.substring(start, end), 2));
-
-                start = end;
-                end += 20;
-
-                if (end > N) end = N;
+            // 1비트를 찾아 해당위치를 set 해준다
+            for (int j = 0; j < N; j++) {
+                if (link.charAt(j) == '1') {
+                    links[i].set(j);
+                }
             }
-        }
-
-        for (int i = 0; i < (1 << 20) + 1; i++) {
-            bitCnt[i] = Integer.bitCount(i);
         }
 
         int Q = Integer.parseInt(br.readLine());
 
-        for (int i = 0; i < Q; i++) {
+        for (int q = 0; q < Q; q++) {
             st = new StringTokenizer(br.readLine());
-
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            int cnt = 0;
 
-            for (int j = 0; j < links.get(0).size(); j++) {
-                cnt += bitCnt[links.get(a-1).get(j) & links.get(b-1).get(j)];
-            }
+            // 비트셋 복사
+            BitSet friendA = (BitSet) links[a].clone();
+            // 복사한 비트셋에 and 연산 적용
+            friendA.and(links[b]);
 
-            sb.append(cnt).append("\n");
+            sb.append(friendA.cardinality()).append("\n");
         }
 
         System.out.println(sb);

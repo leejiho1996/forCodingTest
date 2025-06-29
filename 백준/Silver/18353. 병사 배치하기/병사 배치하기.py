@@ -4,13 +4,29 @@ input = sys.stdin.readline
 
 N = int(input())
 nums = list(map(int,input().split()))
-dp = [1] * N
+lis = [-nums[0]]
 
-for i in range(N):
-    cur = nums[i]
-    for j in range(i):
-        if nums[j] > nums[i]:
-            dp[i] = max(dp[i], dp[j] + 1)
+for i in range(1, N):
+    cur = -nums[i]
 
-print(N - max(dp))
+    if cur > lis[-1]:
+        lis.append(cur)
+        continue
+
+    start = 0
+    end = len(lis)-1
+
+    while start <= end:
+
+        mid = (start + end) // 2
+
+        if lis[mid] >= cur:
+            end = mid - 1
+        else:
+            start = mid + 1
+
+    lis[end+1] = cur
+        
+print(N - len(lis))
+        
         

@@ -8,25 +8,40 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
         int[] nums = new int[N];
-        int[] dp = new int[N];
-        int result = 1;
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             nums[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.fill(dp, 1);
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(-nums[0]);
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < i; j++) {
-                if (nums[j] > nums[i]) {
-                    dp[i] = Math.max(dp[i], dp[j]+1);
-                    result = Math.max(result, dp[i]);
-                }
-            }
+        for (int i = 1; i < N; i++) {
+           int cur = -nums[i];
+
+           if (cur > list.get(list.size() - 1)) {
+               list.add(cur);
+               continue;
+           }
+
+           int start = 0;
+           int end = list.size() - 1;
+
+           while (start <= end) {
+
+               int mid = (start + end) / 2;
+
+               if (list.get(mid) >= cur) {
+                   end = mid - 1;
+               } else {
+                   start = mid + 1;
+               }
+           }
+
+           list.set(end + 1, cur);
         }
 
-        System.out.println(N - result);
+        System.out.println(N - list.size());
     }
 }

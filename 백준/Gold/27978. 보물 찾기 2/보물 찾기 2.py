@@ -1,7 +1,7 @@
 # 보물 찾기 2
 import sys
 input = sys.stdin.readline
-import heapq as hq
+from collections import deque
 
 H, W = map(int,input().split())
 graph = []
@@ -21,28 +21,11 @@ for i in range(H):
 
 visited[sr][sc] = 0
 
-que = []
-for dx, dy in direc:
-    nr, nc = sr + dx, sc + dy
-
-    if nr < 0 or nc < 0 or nr >= H or nc >= W:
-        continue
-
-    if graph[nr][nc] == '#':
-        continue
-
-    if dy == 1:
-        hq.heappush(que, (0, nr, nc))
-    else:
-        hq.heappush(que, (1, nr, nc))
+que = deque([])
+que.append((0, sr, sc))
 
 while que:
-    cost, r, c = hq.heappop(que)
-
-    if visited[r][c] <= cost:
-        continue
-    else:
-        visited[r][c] = cost
+    cost, r, c = que.popleft()
 
     if graph[r][c] == '*':
         print(cost)
@@ -58,8 +41,10 @@ while que:
             continue
 
         if dy == 1 and visited[nr][nc] > cost:
-            hq.heappush(que, (cost, nr, nc))
-        elif visited[nr][nc] > cost:
-            hq.heappush(que, (cost+1, nr, nc))
+            que.appendleft((cost, nr, nc))
+            visited[nr][nc] = cost
+        elif visited[nr][nc] > cost + 1:
+            que.append((cost+1, nr, nc))
+            visited[nr][nc] = cost+1
         
 print(-1)

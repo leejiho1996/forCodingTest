@@ -9,15 +9,15 @@ def isFinish(idx, cnt):
 
 def moveWhite(idx, r, c, nr, nc, direc):
     
-    if pos[nr][nc] != -1: # 이동하려는 칸에 말이 있는 경우
+    if pos[nr][nc] != -1:
         for i in child[idx]:
             child[pos[nr][nc]].append(i)
-            pieces[i] = (i, nr, nc, pieces[i][3]) # 위의 말 위치 갱신
+            pieces[i] = (i, nr, nc, pieces[i][3]) 
 
         child[idx] = []
 
         isFinish(pos[nr][nc], cnt)
-    else: # 이동하려는 칸에 말이 없는 경우
+    else: 
         for i in child[idx]:
             pieces[i] = (i, nr, nc, pieces[i][3])
 
@@ -27,21 +27,21 @@ def moveWhite(idx, r, c, nr, nc, direc):
         
 def moveRed(idx, r, c, nr, nc, direc):
          
-    if pos[nr][nc] != -1: # 이동하려는 칸에 말이 있는 경우
-        for i in range(len(child[idx])-1, -1, -1): # 순서가 뒤집힌다
+    if pos[nr][nc] != -1: 
+        for i in range(len(child[idx])-1, -1, -1): 
             cur = child[idx][i]
             child[pos[nr][nc]].append(child[idx][i])
-            pieces[cur] = (cur, nr, nc, pieces[cur][3]) # 위의 말 위치 갱신
+            pieces[cur] = (cur, nr, nc, pieces[cur][3]) 
 
-        isFinish(pos[nr][nc], cnt) # 종료 확인
+        isFinish(pos[nr][nc], cnt) 
         
         child[idx] = []
-    else: # 이동하려는 칸에 말이 없는 경우
+    else: 
         if len(child[idx]) > 1:
-            for i in range(len(child[idx])-1, -1, -1): # 순서가 뒤집힌다
+            for i in range(len(child[idx])-1, -1, -1): 
                 cur = child[idx][i]
                 child[child[idx][-1]].append(cur)
-                pieces[cur] = (cur, nr, nc, pieces[cur][3]) # 위의 말 위치 갱신
+                pieces[cur] = (cur, nr, nc, pieces[cur][3]) 
             
             pos[nr][nc] = child[idx][-1] 
             child[idx] = []
@@ -53,14 +53,13 @@ def moveRed(idx, r, c, nr, nc, direc):
 
 def moveBlue(idx, r, c, nr, nc, direc):
 
-    if direc % 2 == 1: # 반대 방향
+    if direc % 2 == 1:
         reverse = direc + 1
     else:
         reverse = direc - 1
 
-    pieces[idx] = (idx, r, c, reverse) # 방향을 바꿈
+    pieces[idx] = (idx, r, c, reverse)
     
-    # 이동하는 방향이 또 파란색이거나 벽이면 방향만 바꿈
     if nr < 0 or nc < 0 or nr >= N or nc >= N or board[nr][nc] == 2: 
         pass
     elif board[nr][nc] == 1:
@@ -72,7 +71,7 @@ N, K = map(int,input().split())
 board = []
 pos = [[-1] * N for _ in range(N)]
 pieces = []
-child = [[i] for i in range(K)] # 각 말위에 존재하는 말들
+child = [[i] for i in range(K)]
 move = {1 : (0, 1), 2 : (0, -1), 3 : (-1, 0), 4 : (1, 0)}
 
 for i in range(N):
@@ -98,7 +97,7 @@ while cnt < 1000:
                 ndirec = direc + 1
             else:
                 ndirec = direc - 1
-            # 반대로 이동
+
             nr, nc = r + move[ndirec][0], c + move[ndirec][1]
             moveBlue(idx, r, c, nr, nc, direc)          
         elif board[nr][nc] == 0:

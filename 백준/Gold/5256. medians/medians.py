@@ -1,7 +1,6 @@
 # medians
 import sys
 input = sys.stdin.readline
-import heapq as hq
 
 def find(limit, idx, flag):
 

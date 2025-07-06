@@ -3,36 +3,34 @@ import sys
 input = sys.stdin.readline
 import heapq as hq
 
-def popQue(limit, que):
+def popQue(limit, idx, flag):
 
     cnt = 0
     
     while cnt < limit:
-        num = hq.heappop(que)
-        num = abs(num)
-        
+        num = nums[idx]
+
         if visited[num]:
+            idx += flag
             continue
         else:
-            visited[num] = 1
             result.append(num)
+            visited[num] = 1
+            idx += flag
+            cnt += 1
 
-        cnt += 1
+    return idx
 
 N = int(input())
 B = list(map(int,input().split()))
 visited = [0] * (2*N)
 visited[B[0]] = 1
+nums = [i for i in range(2*N)]
 
 result = [B[0]]
+minIdx = 1
+maxIdx = 2*N-1
 
-minQue = []
-maxQue = []
-
-for i in range(2*N-1):
-    hq.heappush(minQue, i+1)
-    hq.heappush(maxQue, -(i+1))
-    
 for i in range(1, N):
     cur = B[i]
 
@@ -44,12 +42,12 @@ for i in range(1, N):
         visited[cur] = 1
         
     if cur < B[i-1]:
-        popQue(limit, minQue)        
+        minIdx = popQue(limit, minIdx, 1)        
     elif cur > B[i-1]:
-        popQue(limit, maxQue)
+        maxIdx = popQue(limit, maxIdx, -1)
     else:
-        popQue(1, minQue)
-        popQue(1, maxQue)
+        minIdx = popQue(1, minIdx, 1)
+        maxIdx = popQue(1, maxIdx, -1)
 
 print(*result)
         

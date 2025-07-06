@@ -29,10 +29,6 @@ result = [B[0]]
 minQue = []
 maxQue = []
 
-for i in range(N):
-    hq.heappush(minQue, (B[i], -1))
-    hq.heappush(maxQue, (-B[i], -1))
-
 for i in range(2*N-1):
     hq.heappush(minQue, (i+1, 0))
     hq.heappush(maxQue, (-(i+1), 0))

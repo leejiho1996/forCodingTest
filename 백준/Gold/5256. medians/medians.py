@@ -8,7 +8,7 @@ def popQue(limit, que):
     cnt = 0
     
     while cnt < limit:
-        num, pri = hq.heappop(que)
+        num = hq.heappop(que)
         num = abs(num)
         
         if visited[num]:
@@ -30,8 +30,8 @@ minQue = []
 maxQue = []
 
 for i in range(2*N-1):
-    hq.heappush(minQue, (i+1, 0))
-    hq.heappush(maxQue, (-(i+1), 0))
+    hq.heappush(minQue, i+1)
+    hq.heappush(maxQue, -(i+1))
     
 for i in range(1, N):
     cur = B[i]

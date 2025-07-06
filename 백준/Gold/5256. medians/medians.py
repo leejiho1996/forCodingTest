@@ -3,7 +3,7 @@ import sys
 input = sys.stdin.readline
 import heapq as hq
 
-def popQue(limit, idx, flag):
+def find(limit, idx, flag):
 
     cnt = 0
     
@@ -42,12 +42,12 @@ for i in range(1, N):
         visited[cur] = 1
         
     if cur < B[i-1]:
-        minIdx = popQue(limit, minIdx, 1)        
+        minIdx = find(limit, minIdx, 1)        
     elif cur > B[i-1]:
-        maxIdx = popQue(limit, maxIdx, -1)
+        maxIdx = find(limit, maxIdx, -1)
     else:
-        minIdx = popQue(1, minIdx, 1)
-        maxIdx = popQue(1, maxIdx, -1)
+        minIdx = find(1, minIdx, 1)
+        maxIdx = find(1, maxIdx, -1)
 
 print(*result)
         

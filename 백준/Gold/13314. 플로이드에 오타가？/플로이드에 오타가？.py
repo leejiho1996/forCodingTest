@@ -3,7 +3,6 @@ import sys
 input = sys.stdin.readline
 
 D = [[0] * 100 for _ in range(100)]
-E = [[0] * 100 for _ in range(100)]
 
 for i in range(99):
     for j in range(100):
@@ -12,17 +11,14 @@ for i in range(99):
 
         if j == 9999:
             D[i][j] = 1
-            E[i][j] = 1
             continue
         
         D[i][j] = 10000
-        E[i][j] = 10000
 
 for i in range(99):
     D[i][j] = 1
-    E[i][j] = 1
 
 print(100)
 
 for i in range(100):
-    print(*E[i])
+    print(*D[i])

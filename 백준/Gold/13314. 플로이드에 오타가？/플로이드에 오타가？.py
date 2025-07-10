@@ -13,7 +13,7 @@ for i in range(99):
             D[i][j] = 1
             continue
         
-        D[i][j] = 10000
+        D[i][j] = 2
 
 for i in range(99):
     D[i][j] = 1

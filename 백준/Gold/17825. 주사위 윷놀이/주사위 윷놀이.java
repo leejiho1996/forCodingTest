@@ -50,12 +50,16 @@ public class Main {
         graph.add(new int[]{25, 30, 35, 40});
         // 그래프 생성 끝
 
+        // 25부터 시작되는 특수한 위치는 map에 저장
         map.put(25, new int[]{4, 0, 25}); map.put(30, new int[]{4, 1, 30});
         map.put(35, new int[]{4, 2, 35}); map.put(40, new int[]{0, 20, 40});
-        backtrack(0, 0);
-        System.out.println(max);
+
+        backtrack(0, 0); // 백트래킹 수행
+
+        System.out.println(max); // 정답 출력
     }
 
+    // 백트래킹으로 모든 경우의 수 확인
     static void backtrack(int cur, int total) {
         max = Math.max(max, total);
 
@@ -64,21 +68,23 @@ public class Main {
         }
 
         for (int i = 0; i < 4; i++) {
+            // 이동 전 위치
             int prevR = pieces[i].r;
             int prevC = pieces[i].c;
 
             boolean check = true;
 
-            if (prevR == -1) {
+            if (prevR == -1) { // 이미 도착한 말은 패스
                 continue;
             }
 
+            // 이동 후 위치와 획득하는 점수 계산
             int[] next = move(prevR, prevC, cur);
 
-            if (next[0] != -1) {
+            if (next[0] != -1) { // 도착지로 간 말이 아니면 똑같은 위치에 있는 말을 확인해야함
                 check = checkSame(next[0], next[1], i);
             }
-
+            // 움직이고자 하는 위치에 말이 없으면 말을 움직이고 함수 재귀호출
             if (check) {
                 pieces[i].change(next[0], next[1]);
                 backtrack(cur+1, total + next[2]);
@@ -87,6 +93,7 @@ public class Main {
         }
     }
 
+    // 똑같은 위치에 말이 존재하는지 확인하는 메서드
     static boolean checkSame(int r, int c, int idx) {
         for (int i = 0; i < 4; i++) {
             if (i == idx) {
@@ -101,10 +108,11 @@ public class Main {
         return true;
     }
 
-
+    // 말을 이동시키는 메서드
     static int[] move(int r, int c, int cur) {
         int cnt = dices[cur];
 
+        // 말이 10, 20, 30점 위에 있을 때 다른 배열로 옮겨줘야함
         if (r == 0 && c == 5) {
             r = 1;
             c = 0;
@@ -116,12 +124,13 @@ public class Main {
             c = 0;
         }
 
+        // 최대 범위
         int lim = graph.get(r).length;
-
+        // 범위를 벗어나면 도착지로 이동한 것
         if (c + cnt >= lim) {
             return new int[] {-1, -1, 0};
         }
-
+        // 아니라면 옮겨준다. 이 때 특수한 칸은 dic에서 좌표를 찾는다
         if (r > 0 && map.containsKey(graph.get(r)[c+cnt])) {
             return map.get(graph.get(r)[c+cnt]);
         } else {

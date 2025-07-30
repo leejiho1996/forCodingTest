@@ -1,3 +1,4 @@
+# HTML
 words = []
 
 while True:
@@ -8,24 +9,44 @@ while True:
 
     for i in line.rstrip().split():
         words.append(i)
-        
-stdout = ""
-line_count = 0
 
-for token in words:
-    if token == "<br>":
-        stdout += "\n"
-        line_count = 0
-    elif token == "<hr>":
-        if line_count:
-            stdout += "\n"
-        stdout += "-"*80 + "\n"
-        line_count = 0
-    elif line_count + len(token) + 1 <= 80:
-        stdout += " "*(bool(line_count)) + token
-        line_count += len(token) + 1
-    else:
-        stdout += "\n" + token
-        line_count = len(token)
+result = ""
+curCnt = 0
 
-print(stdout)
+for i in words:
+
+    if i == "<br>":
+        result += "\n"
+        curCnt = 0
+        continue
+    elif i == "<hr>":
+        if curCnt != 0:
+            result += "\n"
+
+        result += "-" * 80
+        result += "\n"
+        curCnt = 0
+        continue
+
+    if curCnt == 0 and len(i) == 80:
+        result += i
+        result += '\n'
+        curCnt = 0
+        continue
+    
+    if curCnt + len(i) + 1 <= 80:
+        if curCnt:
+            result += " "
+            curCnt += 1
+            
+        curCnt += len(i)
+        result += i
+    else: 
+        curCnt = len(i)
+        result += '\n'
+        result += i
+
+    if curCnt == 80:
+        result += "\n"
+    
+print(result)

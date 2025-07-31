@@ -12,15 +12,17 @@ dp = [float('inf')] * N
 
 for i in range(N):
 
+    # L개 이상 차이나는 수는 덱에서 제거
     if que and que[0] <= i - L:
         que.popleft()
 
+    # 덱의 맨 앞에는 항상 현재 범위내에 가장 작은 수가 존재
     if que:
         dp[i] = min(nums[que[0]], nums[i])
     else:
         dp[i] = nums[i]
 
-    while que and nums[que[-1]] > nums[i]:
+    while que and nums[que[-1]] >= nums[i]:
         que.pop()
 
     que.append(i)

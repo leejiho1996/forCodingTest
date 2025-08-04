@@ -1,1 +1,1 @@
-N = int(input()); print('a'*N)
+print(int(input())*'a')

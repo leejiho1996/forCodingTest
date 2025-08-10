@@ -22,8 +22,10 @@ for i in range(N):
     else:
         dic[num] = 1
 
-minn = 200000
-for i in range(200000):
+# 가능한 작은 수는 최대 N
+minn = N
+for i in range(N):
+    # dic에 없거나 제거할 수 있다면 해당 숫자가 최솟값
     if i not in dic or dic[i] <= K:
         minn = i
         break

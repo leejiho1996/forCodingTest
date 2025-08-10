@@ -30,26 +30,30 @@ for i in range(N):
         minn = i
         break
 
-print(minn)
+print(minn) # 최소값 출력
 
-prev = -1
+
+prev = -1 # 가능한 최솟값이 0이니 초기 prev는 -1
 check = False
 for i in range(len(set_list)):
+    # 이전 값과 현재 값 사이에 넣어야하는 숫자 갯수
     fill = set_list[i] - prev - 1
     
-    if fill < 1:
+    if fill == 0: # 채울 필요가 없으면 패스
         prev = set_list[i]
         continue
-    
+
+    # K번의 연산으로 채울 수 없다면 break
     if K - fill < 0:
         check = True
         break
-    else:
+    else: # 채울 수 있다면 다음 값을 넘어간다
         K -= fill
         prev = set_list[i]
 
+# break 되었다면 이전 값에 (K+1) 
 if check:
     print(prev + (K+1))
-else:
+else: # 아니라면 마지막 값에 K+1
     print(set_list[-1] + (K+1))
 

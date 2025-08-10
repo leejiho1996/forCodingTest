@@ -6,7 +6,6 @@ input = sys.stdin.readline
 N, K = map(int,input().split())
 
 nums = list(map(int,input().split()))
-nums.sort()
 
 sett = set(nums)
 set_list = list(sett)

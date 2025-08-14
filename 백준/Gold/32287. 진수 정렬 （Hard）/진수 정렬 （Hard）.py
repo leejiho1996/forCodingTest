@@ -33,7 +33,7 @@ for i in range(M-1, 0, -1):
 
     bigger += cur
 
-for i in range(N-1, -1, -1):  
+for i in range(N-1, 0, -1):  
     cur = int(S[i])
 
     for j in range(cur-1, -1, -1):

@@ -8,7 +8,7 @@ def backtrack(cur, friends, cnt):
         for i in result:
             print(i)
         exit()
-        
+
     for i in range(cur+1, N+1):
         if friends[i] == 0:
             continue
@@ -21,7 +21,7 @@ def backtrack(cur, friends, cnt):
                  count += 1
                  new_friends[j] = 1
 
-        if count >= K:
+        if count >= K: 
             result.append(i)
             backtrack(i, new_friends, cnt+1)
             result.pop()
@@ -38,7 +38,7 @@ for i in range(F):
     graph[n1][n2] = 1
     graph[n2][n1] = 1
         
-for i in range(1, N+1):
+for i in range(1, N+1):    
     result.append(i)
     backtrack(i, graph[i].copy(), 1)
     result.pop()

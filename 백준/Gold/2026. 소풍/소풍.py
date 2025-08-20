@@ -4,9 +4,14 @@ input = sys.stdin.readline
 
 def backtrack(cur, friends, cnt):
 
-    if cnt == K:
+    if cnt == K-1:
         for i in result:
             print(i)
+
+        for i in range(cur+1, N+1):
+            if friends[i] == 1:
+                print(i)
+                break
         exit()
 
     for i in range(cur+1, N+1):
@@ -39,6 +44,9 @@ for i in range(F):
     graph[n2][n1] = 1
         
 for i in range(1, N+1):    
+    if sum(graph[i]) < K:
+        continue
+        
     result.append(i)
     backtrack(i, graph[i].copy(), 1)
     result.pop()

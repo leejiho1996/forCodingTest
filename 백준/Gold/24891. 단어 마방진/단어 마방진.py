@@ -28,6 +28,9 @@ def solve(cur, cnt):
         if visited[i]:
             continue
 
+        if cur and cur[0][cnt] != words[i][0]:
+            continue
+
         visited[i] = 1
         cur.append(words[i])
 

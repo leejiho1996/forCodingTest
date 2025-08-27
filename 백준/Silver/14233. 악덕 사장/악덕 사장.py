@@ -5,18 +5,9 @@ input = sys.stdin.readline
 N = int(input())
 exp = list(map(int,input().split()))
 exp.sort()
+result = 1_000_000_000
 
-for i in range(exp[0], 0, -1):
-    if i * N > exp[-1]:
-        continue
+for i in range(N):
+    result = min(result, exp[i] // (i+1))
 
-    check = True
-    
-    for j in range(N):
-        if (j+1) * i > exp[j]:
-            check = False
-            break
-
-    if check:
-        print(i)
-        break
+print(result)

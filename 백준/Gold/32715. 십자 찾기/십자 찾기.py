@@ -28,12 +28,7 @@ for i in range(N):
         
         total = 0
 
-        total += row[i][j+K+1] - row[i][j+1]
-        total += row[i][j] - row[i][j-K]
-        total += col[j][i+K+1] - col[j][i+1]
-        total += col[j][i] - col[j][i-K]
-
-        if total == 4*K:
+        if row[i][j+K+1] - row[i][j-K] == 2*K+1 and col[j][i+K+1] - col[j][i-K] == 2*K+1:
             result += 1
 
 print(result)

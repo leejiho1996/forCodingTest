@@ -1,35 +1,33 @@
-# 십자 찾기
 import sys
 input = sys.stdin.readline
 
-N, M = map(int,input().split())
-K = int(input())
+def solve():
+    N, M = map(int, input().split())
+    K = int(input())
+    L = 2 * K + 1
+    arr = [list(map(int, input().split())) for _ in range(N)]
+    if K == 0:
+        cnt = sum(sum(line)for line in arr)
+        print(cnt)
+        return
+    vert = [arr[0]] + [[0] * M for _ in range(N-1)]
+    horz = [[0] * M for _ in range(N)]
+    cnt = 0
+    for row in range(1, N):
+        for col in range(M):
+            if arr[row][col] == 0:
+                continue
+            vert[row][col] = vert[row - 1][col] + 1
+            if col > 0:
+                horz[row][col] = horz[row][col - 1] + 1
+            else:
+                horz[row][col] = 1
 
-graph = []
-row = [[0] * (M+1) for _ in range(N)]
-col = [[0] * (N+1) for _ in range(M)]
-result = 0
+            if vert[row][col] >= L:
+                if col + K < M:
+                    nr, nc = row - K, col + K
+                    if horz[nr][nc] >= L:
+                        cnt += 1
+    print(cnt)
 
-for i in range(N):
-    cur = list(map(int,input().split()))
-    graph.append(cur)
-    
-    for j in range(M):
-        row[i][j+1] = row[i][j] + cur[j]
-        col[j][i+1] = col[j][i] + cur[j]
-
-for i in range(N):
-    for j in range(M):
-        if i - K < 0 or i + K >= N or j - K < 0 or j + K >= M:
-            continue
-
-        if graph[i][j] == 0:
-            continue
-        
-        total = 0
-
-        if row[i][j+K+1] - row[i][j-K] == 2*K+1 and col[j][i+K+1] - col[j][i-K] == 2*K+1:
-            result += 1
-
-print(result)
-        
+solve()

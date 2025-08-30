@@ -29,4 +29,3 @@ for i in range(T):
 
     print(cnt)
             
-    

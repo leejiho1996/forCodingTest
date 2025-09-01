@@ -13,7 +13,7 @@ public class Main {
             int N = Integer.parseInt(st.nextToken());
             int K = Integer.parseInt(st.nextToken());
 
-            PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> a - b);
+            PriorityQueue<Integer> pq = new PriorityQueue<>();
 
             st = new StringTokenizer(br.readLine());
             for (int i = 0; i < N; i++) {
@@ -40,7 +40,7 @@ public class Main {
                 pq.offer(tmp);
 
             }
-            
+
             System.out.println(result);
         }
     }

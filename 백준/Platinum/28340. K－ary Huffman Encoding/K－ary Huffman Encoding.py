@@ -11,7 +11,7 @@ for _ in range(T):
     hq.heapify(times)
     result = 0
     
-    needs = ((K - 1) - ((N - 1) % (K - 1))) % (K - 1)
+    needs = ((K-1) - ((N-1) % (K-1))) % (K-1)
     
     for i in range(needs):
         hq.heappush(times, 0)

@@ -1,7 +1,29 @@
 # 신기한 루트 갯수 찾기
 import sys
 input = sys.stdin.readline
-from collections import deque
+sys.setrecursionlimit(300001)
+
+def dfs(cur):
+
+    visited[cur] = 1
+    cnt = 1
+    child = 0
+    
+    for i in graph[cur]:
+
+        if visited[i]:
+            continue
+        
+        if i == B-1:
+            child += 1
+            continue
+
+        nchild, ncnt = dfs(i)
+
+        cnt += ncnt
+        child += nchild
+        
+    return child, cnt
 
 N, A, B = map(int,input().split())
 visited = [0] * N
@@ -12,48 +34,15 @@ for i in range(N-1):
     graph[n1-1].append(n2-1)
     graph[n2-1].append(n1-1)
 
-que = deque([])
-que.append((A-1, 0))
 visited[A-1] = 1
 
-while que:
-    cur, cnt = que.popleft()
-
-    for i in graph[cur]:
-
-        if visited[i]:
-            continue
-
-        if i == B-1:
-            LCA = cur
-            break
-        
-        que.append((i, cnt+1))
-        visited[i] = 1
-
-visited = [0] * N
-
-if LCA != A-1:
-    stack = [LCA]
-    visited[LCA] = 1
-else:
-    stack = []
+for i in graph[A-1]:
+    if i == B-1:
+        print(0)
+        break
     
-result = 0
+    child, cnt = dfs(i)
 
-while stack:
-    cur = stack.pop()
-    result += 1
-    visited[cur] = 1
-
-
-    for i in graph[cur]:
-        if i == A-1 or i == B-1:
-            continue
-
-        if visited[i]:
-            continue
-        
-        stack.append(i)
-
-print(result)
+    if child:
+        print(cnt)
+        break

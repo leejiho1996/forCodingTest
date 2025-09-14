@@ -13,31 +13,35 @@ for i in range(M):
     links.append(link)
     for j in link:
         graph[j].append(i)
+
+def bfs():
     
-que = deque([])
+    que = deque([])
 
-if N == 1:
-    print(1)
-    exit()
-    
-for i in graph[1]:
-    que.append((i, 2))
-    visited[i] = 1
+    if N == 1:
+        print(1)
+        return
+        
+    for i in graph[1]:
+        que.append((i, 2))
+        visited[i] = 1
 
-while que:
-    cur, cnt = que.popleft()
-    
-    for i in links[cur]:
-        if i == N:
-            print(cnt)
-            exit()
-            
-        for j in graph[i]:
+    while que:
+        cur, cnt = que.popleft()
+        
+        for i in links[cur]:
+            if i == N:
+                print(cnt)
+                return
+                
+            for j in graph[i]:
 
-            if visited[j]:
-                continue
+                if visited[j]:
+                    continue
 
-            que.append((j, cnt+1))
-            visited[j] = 1
+                que.append((j, cnt+1))
+                visited[j] = 1
 
-print(-1)
+    print(-1)
+
+bfs()

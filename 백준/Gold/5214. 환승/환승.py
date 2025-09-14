@@ -4,39 +4,40 @@ input = sys.stdin.readline
 from collections import deque
 
 N, K, M = map(int,input().split())
-graph = []
-g_visited = [0] * M
-visited = [0] * (N+1)
+graph = [[] for _ in range(N+1)]
+links = []
+visited = [0] * M
 
 for i in range(M):
-    links = set(map(int,input().split()))
-    graph.append(links)
+    link = list(map(int, input().split()))
+    links.append(link)
+    for j in link:
+        graph[j].append(i)
     
 que = deque([])
-que.append((1, 1))
-visited[1] = 1
+
+if N == 1:
+    print(1)
+    exit()
+    
+for i in graph[1]:
+    que.append((i, 2))
+    visited[i] = 1
 
 while que:
     cur, cnt = que.popleft()
     
-    if cur == N:
-        print(cnt)
-        exit()
-        
-    for i in range(M):
-        if g_visited[i]:
-            continue
+    for i in links[cur]:
+        if i == N:
+            print(cnt)
+            exit()
+            
+        for j in graph[i]:
 
-        sett = graph[i]
-        
-        if cur in sett:
-            for j in sett:
-                if visited[j]:
-                    continue
+            if visited[j]:
+                continue
 
-                que.append((j, cnt+1))
-                visited[j] = 1
-
-            g_visited[i] = 1
+            que.append((j, cnt+1))
+            visited[j] = 1
 
 print(-1)

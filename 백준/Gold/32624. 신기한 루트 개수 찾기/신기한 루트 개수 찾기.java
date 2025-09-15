@@ -6,31 +6,7 @@ public class Main {
     static int N, A, B;
     static List<Integer>[] graph;
     static boolean[] visited;
-
-    static int[] dfs(int cur) {
-        visited[cur] = true;
-        int cnt = 1;
-        int child = 0;
-
-        for (int i : graph[cur]) {
-            if (visited[i]) continue;
-
-            if (i == B) {
-                child += 1; // B와 이어진 노드라면 체크
-                continue;
-            }
-
-            int[] result = dfs(i);
-            int nchild = result[0];
-            int ncnt = result[1];
-
-            cnt += ncnt;
-            child += nchild;
-        }
-
-        return new int[]{child, cnt};
-    }
-
+    
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -76,5 +52,29 @@ public class Main {
                 break;
             }
         }
+    }
+    
+    static int[] dfs(int cur) {
+        visited[cur] = true;
+        int cnt = 1;
+        int child = 0;
+
+        for (int i : graph[cur]) {
+            if (visited[i]) continue;
+
+            if (i == B) {
+                child += 1; // B와 이어진 노드라면 체크
+                continue;
+            }
+
+            int[] result = dfs(i);
+            int nchild = result[0];
+            int ncnt = result[1];
+
+            cnt += ncnt;
+            child += nchild;
+        }
+
+        return new int[]{child, cnt};
     }
 }

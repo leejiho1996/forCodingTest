@@ -1,54 +1,28 @@
+from collections import deque
 import sys
-input = sys.stdin.readline
-INF = 10**18
+input=sys.stdin.readline
+F=lambda:[*map(int,input().split())]
 
-class GasStation:
-    def __init__(self, x, p):
-        self.x = x
-        self.p = p
+C,E,D=F()
+N=int(input())
+X=F()
+for i in range(1,N):X[i]+=X[i-1]
+for i in range(N):X[i]*=E
+D*=E
+P=F()
 
-def main():
-    C, E, D = map(int, input().split())
-    N = int(input())
-
-    gs = [None] * (N + 2)
-    gs[0] = GasStation(0, 0)
-    gs[N + 1] = GasStation(D, 0)
-
-    if N != 0:
-        dists = list(map(int, input().split()))
-        costs = list(map(int, input().split()))
-        for i in range(1, N + 1):
-            x = gs[i - 1].x + dists[i - 1]
-            p = costs[i - 1]
-            gs[i] = GasStation(x, p)
-
-    
-    dp = [[INF] * (C + 1) for _ in range(N + 2)]
-    
-    fgs = C - (gs[1].x * E) 
-    if fgs < 0:
-        print(-1)
-        return
-
-    dp[1][fgs] = 0
-
-    for i in range(1, N + 1):
-        for j in range(C + 1):
-            if dp[i][j] != INF:
-                nd = gs[i + 1].x - gs[i].x  
-                for k in range(C - j + 1):  
-                    curFuel = j + k
-                    curFuel -= nd * E
-                    if curFuel >= 0:
-                        dp[i + 1][curFuel] = min(dp[i + 1][curFuel], dp[i][j] + gs[i].p * k)
-
-    answer = min(dp[N + 1])
-    if answer == INF:
-        print(-1)
-    else:
-        print(answer)
-
-
-if __name__ == "__main__":
-    main()
+ans=x=i=0; c=C
+DQ=deque([])
+while x<D:
+  if i<N and X[i]==x:
+    p=P[i]
+    while DQ and P[DQ[-1]]>=p:DQ.pop()
+    DQ.append(i)
+    i+=1
+  if DQ and X[DQ[0]]+C<=x:DQ.popleft()
+  if c>0:c-=1;x+=1
+  elif not DQ:print(-1);quit()
+  else:
+    ans+=P[DQ[0]]
+    x+=1
+print(ans)

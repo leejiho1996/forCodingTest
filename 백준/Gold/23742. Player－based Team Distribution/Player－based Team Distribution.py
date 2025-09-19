@@ -16,9 +16,10 @@ for i in range(N):
         plus += nums[i]
         plus_cnt += 1
     else:
-        to_plus = plus + nums[i]
+        to_plus = (plus + nums[i]) * (plus_cnt+1)
+        cur = plus*plus_cnt
         
-        if to_plus * (plus_cnt+1) >= plus * plus_cnt or to_plus * (plus_cnt+1) + minus >= plus * plus_cnt + (minus + nums[i]):
+        if to_plus >= cur or to_plus + minus >= cur + (minus + nums[i]):
             plus += nums[i]
             plus_cnt += 1
         else:

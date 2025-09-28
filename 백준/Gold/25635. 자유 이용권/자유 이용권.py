@@ -11,5 +11,5 @@ total = sum(tickets)
 if total - tickets[0] >= tickets[0]:
     print(total)
 else:
-    print(total - tickets[0] + sum(tickets[1:]) + 1)
+    print(2 * sum(tickets[1:]) + 1)
         

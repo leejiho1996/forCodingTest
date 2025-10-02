@@ -5,7 +5,7 @@ input = sys.stdin.readline
 N, L, W, H = map(int,input().split())
 start, end = 0, max(L, W, H)
 
-for _ in range(10000):
+for _ in range(1000):
     mid = (start + end) / 2
     total = (L // mid) * (W // mid) * (H // mid)
     if total >= N:

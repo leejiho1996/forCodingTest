@@ -1,16 +1,18 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int N = sc.nextInt();
-        double L = sc.nextDouble();
-        double W = sc.nextDouble();
-        double H = sc.nextDouble();
+        double N = Double.parseDouble(st.nextToken());
+        double L = Double.parseDouble(st.nextToken());
+        double W = Double.parseDouble(st.nextToken());
+        double H = Double.parseDouble(st.nextToken());
 
         double start = 0;
-        double end = Math.max(L, Math.max(W, H));
+        double end = Math.min(L, Math.min(W, H));
 
         for (int i = 0; i < 10000; i++) {
             double mid = (start + end) / 2.0;
@@ -25,4 +27,5 @@ public class Main {
 
         System.out.println(end);
     }
+
 }

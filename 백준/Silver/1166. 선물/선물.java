@@ -14,7 +14,7 @@ public class Main {
         double start = 0;
         double end = Math.min(L, Math.min(W, H));
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 50; i++) {
             double mid = (start + end) / 2.0;
             long total = (long)(L / mid) * (long)(W / mid) * (long)(H / mid);
 

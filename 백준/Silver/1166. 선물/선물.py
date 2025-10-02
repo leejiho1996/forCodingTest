@@ -3,7 +3,7 @@ import sys
 input = sys.stdin.readline
 
 N, L, W, H = map(int,input().split())
-start, end = 0, max(L, W, H)
+start, end = 0, min(L, W, H)
 
 for _ in range(1000):
     mid = (start + end) / 2

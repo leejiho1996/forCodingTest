@@ -3,7 +3,7 @@ input = sys.stdin.readline
 
 S = input().rstrip()
 N = len(S)
-best_last = float('inf')
+best_last = int(S)+1
 best_seq = []
 
 def seq_better(a, b):

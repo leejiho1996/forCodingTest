@@ -13,11 +13,7 @@ for i in nums:
     count[i] += 1
 
 for i in range(1, N+1):
-
-    if count[i] == 0:
-        continue
-    else:
-        result *= count[i]
-        result %= DIV
+    result *= count[i]
+    result %= DIV
 
 print(result - 1)

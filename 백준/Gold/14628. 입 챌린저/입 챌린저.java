@@ -11,12 +11,13 @@ public class Main {
         int K = Integer.parseInt(st.nextToken());
 
         int[] dp = new int[M+1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
+        Arrays.fill(dp, 1000000);
         dp[M] = 0;
 
         int[][] useSkill = new int[M+1][N];
         int[][] skills = new int[N][2];
 
+        // 스킬 정보 저장
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
@@ -31,16 +32,12 @@ public class Main {
                 int x = skills[j][0];
                 int y = skills[j][1];
 
-                if (i + y > M) {
+                if (i + y > M) { // 최대체력 이상이면 계산할 필요없음
                     continue;
                 }
 
                 int manaPoint = x + useSkill[i+y][j] * K;
 
-                if (dp[i+y] == Integer.MAX_VALUE) {
-                    continue;
-                }
-                
                 if (dp[i] > dp[i+y] + manaPoint) {
                     dp[i] = dp[i+y] + manaPoint;
                     useSkill[i] = useSkill[i+y].clone();

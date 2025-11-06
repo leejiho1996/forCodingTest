@@ -3,7 +3,6 @@ import sys
 input = sys.stdin.readline
 
 ang = [0] * 360
-use = [0] * 360
 
 n = int(input())
 for _ in range(n):

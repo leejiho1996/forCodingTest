@@ -4,44 +4,38 @@ input = sys.stdin.readline
 
 ang = [0] * 360
 
-n = int(input())
-for _ in range(n):
-    x = int(input())
-    ang[x] = 1
+N = int(input())
 
-max_cnt = 0
-for diff in range(1, 181):
+for i in range(N):
+    ang[int(input())] = 1
+
+result = 0
+for d in range(1, 181):
     cnt = 0
-    use = [0] * 360
-    for start in range(181):
-        if use[start]:
+    visited = [0] * 360
+    for j in range(360):
+        
+        if visited[j] or not ang[j]:
             continue
 
-        cur = start
-        length = 0
-        lens = []
+        tmp = 0
 
-        while True:
-            if ang[cur]:
-                length += 1
-            else:
-                lens.append(length)
-                length = 0
+        # 시계방향으로 체크
+        x = j
+        while ang[x] and not visited[x]:
+            visited[x] = 1
+            tmp += 1
+            x = (x+d) % 360
 
-            use[cur] = 1
-            cur = (cur + diff) % 360
+        # 반시계방향으로 체크
+        x = (j-d) % 360
+        while ang[x] and not visited[x]:
+            visited[x] = 1
+            tmp += 1
+            x = (x-d) % 360
 
-            if cur == start:
-                break
+        cnt += tmp//2
+        
+    result = max(result, cnt)
 
-        if not lens:
-            lens.append(length)
-        else:
-            lens[0] += length
-
-        for e in lens:
-            cnt += (e // 2) * 2
-
-    max_cnt = max(max_cnt, cnt)
-
-print(max_cnt)
+print(result*2)

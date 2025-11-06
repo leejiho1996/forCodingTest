@@ -14,7 +14,7 @@ max_cnt = 0
 for diff in range(1, 181):
     cnt = 0
     use = [0] * 360
-    for start in range(360):
+    for start in range(181):
         if use[start]:
             continue
 

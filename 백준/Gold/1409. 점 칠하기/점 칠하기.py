@@ -11,7 +11,7 @@ for _ in range(n):
     ang[x] = 1
 
 max_cnt = 0
-for diff in range(1, 360):
+for diff in range(1, 181):
     cnt = 0
     use = [0] * 360
     for start in range(360):

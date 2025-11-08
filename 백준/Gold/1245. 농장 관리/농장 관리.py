@@ -4,21 +4,22 @@ input = sys.stdin.readline
 
 def dfs(x, y, h):
 
-    ret = 1
+    ret = True
     visited[x][y] = 1
-    l.append((x, y))
 
     for dx, dy in direc:
         nx, ny = x + dx, y + dy
 
         if nx < 0 or ny < 0 or nx >= N or ny >= M:
             continue
+    
+        if graph[nx][ny] == h and not visited[nx][ny]:
+            ret &= dfs(nx, ny, h)
+            
+        elif graph[nx][ny] > h:
+            ret = False
 
-        if visited[nx][ny]:
-            continue
-        
-        if graph[nx][ny] == h:
-            ret = dfs(nx, ny, h)
+    return ret
 
 N, M = map(int,input().split())
 visited = [[0] * M for _ in range(N)]
@@ -36,24 +37,7 @@ for i in range(N):
         if visited[i][j]:
             continue
 
-        l = []
-
-        dfs(i, j, graph[i][j])
-
-        check = True
-
-        for x, y in l:
-            for dx, dy in direc:
-                nx, ny = x + dx, y + dy
-
-                if nx < 0 or ny < 0 or nx >= N or ny >= M:
-                    continue
-
-                if graph[nx][ny] > graph[i][j]:
-                    check = False
-                    break
-
-        if check:
+        if dfs(i, j, graph[i][j]):
             cnt += 1
-            
+
 print(cnt)

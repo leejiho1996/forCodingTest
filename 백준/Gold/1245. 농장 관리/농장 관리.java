@@ -12,30 +12,6 @@ public class Main {
         {1, 1}, {1, -1}, {-1, 1}, {-1, -1}
     };
 
-    // 높이가 같은 지역은 탐색
-    static boolean dfs(int x, int y, int h) {
-
-        boolean ret = true;
-        visited[x][y] = 1;
-
-        for (int[] d : direc) {
-            int nx = x + d[0];
-            int ny = y + d[1];
-
-            if (nx < 0 || ny < 0 || nx >= N || ny >= M)
-                continue;
-
-            // 높이가 같은 지역은 탐색
-            if (graph[nx][ny] == h && visited[nx][ny] == 0)
-                ret &= dfs(nx, ny, h);
-            // 주변에 더 높은 지역이 있다면 False로 만들어준다
-            else if (graph[nx][ny] > h)
-                ret = false;
-        }
-
-        return ret;
-    }
-
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -67,5 +43,29 @@ public class Main {
         }
 
         System.out.println(cnt);
+    }
+    
+    // 높이가 같은 지역은 탐색
+    static boolean dfs(int x, int y, int h) {
+
+        boolean ret = true;
+        visited[x][y] = 1;
+
+        for (int[] d : direc) {
+            int nx = x + d[0];
+            int ny = y + d[1];
+
+            if (nx < 0 || ny < 0 || nx >= N || ny >= M)
+                continue;
+
+            // 높이가 같은 지역은 탐색
+            if (graph[nx][ny] == h && visited[nx][ny] == 0)
+                ret &= dfs(nx, ny, h);
+            // 주변에 더 높은 지역이 있다면 False로 만들어준다
+            else if (graph[nx][ny] > h)
+                ret = false;
+        }
+
+        return ret;
     }
 }

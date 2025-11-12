@@ -15,7 +15,7 @@ def divide(k, x1, x2, y1, y2, sx, sy):
                 check = True
                 continue
 
-            if k == 1 and graph[i][j] == 0:
+            if k == 1:
                 graph[i][j] = tile
 
     if k == 1:

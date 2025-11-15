@@ -38,7 +38,7 @@ public class Main {
             nums[i] = Integer.parseInt(br.readLine());
         }
 
-        segment(0, n - 1, 1);
+        segment(0, n - 1, 1); // 세그먼트 트리 생성
 
         for (int i = 0; i < m ; i++) {
             st = new StringTokenizer(br.readLine());

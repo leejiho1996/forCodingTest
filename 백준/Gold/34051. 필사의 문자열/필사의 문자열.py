@@ -16,12 +16,7 @@ for i in range(N):
 result = W
 
 for i, j in candi:
-    tmp = W[:i]
-    
-    for k in range(j, i-1, -1):
-        tmp += W[k]
-   
-    tmp += W[j+1:]
+    tmp = W[:i] + W[i:j+1][::-1] + W[j+1:]
 
     if tmp > result:
         result = tmp

@@ -3,23 +3,31 @@ input = sys.stdin.readline
 
 N = int(input())
 W = input().rstrip()
+sortedW = sorted(W, reverse=True)
 
-minn = [5001] * N
-candi = []
+s = -1
+maxx = 'a'
 
 for i in range(N):
-    for j in range(i+1, N):
-        if W[i] < W[j] and minn[j] == 5001:
-            minn[j] = i
-            candi.append((i, j))
+    if s == -1 and W[i] != sortedW[i]:
+        s = i
+
+    if s !=-1 and W[i] > maxx:
+        maxx = W[i]
+
+if s == -1:
+    print(W)
+    exit()
 
 result = W
+for i in range(s+1, N):
 
-for i, j in candi:
-    tmp = W[:i] + W[i:j+1][::-1] + W[j+1:]
+    if W[i] != maxx:
+        continue
+
+    tmp = W[:s] + W[s:i+1][::-1] + W[i+1:]
 
     if tmp > result:
         result = tmp
 
 print(result)
-
